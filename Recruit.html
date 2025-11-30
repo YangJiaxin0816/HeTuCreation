@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>河图元创-相关岗位招聘</title>
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("./相关图片素材/招聘背景.jpg"); 
+            background-repeat: no-repeat; 
+            background-size: cover; 
+        }
+        
+        /* 头部和导航 */
+        header {
+            background-color: #8D0000;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        nav {
+            background-color: #db7171;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            position: relative; 
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s ease; 
+        }
+
+        nav a:hover::after {
+            width: 100%; 
+        }
+
+        /* 主要内容 */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        section {
+            margin-bottom: 30px;
+        }
+        section:first-of-type p {
+            font-family: "楷体", "KaiTi", serif;
+            font-size: 1.5em;
+            line-height: 1.6;
+        }
+                
+        h2 {
+            color: #D32F2F;
+            border-bottom: 2px solid #D32F2F;
+            padding-bottom: 5px;
+        }
+        
+        /* 职位卡片 */
+        .job-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease; /* 添加过渡效果 */
+        }
+        
+        /* 职位卡片悬停效果 */
+        .job-card:hover {
+            transform: translateY(-5px); /* 轻微上浮 */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* 增强阴影 */
+            border-left: 4px solid #D32F2F; /* 添加左侧红色边框 */
+        }
+        
+        .job-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease; /* 添加图片过渡效果 */
+        }
+        
+        .job-card:hover img {
+            transform: scale(1.03); /* 悬停时图片轻微放大 */
+        }
+        
+        .job-content {
+            padding: 40px;
+        }
+        .job-content P{
+            font-size: 17px;
+        }
+        
+        .job-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .job-title h3 {
+            margin: 0;
+            color: #D32F2F;
+            font-size: 25px;
+        }
+        
+        .job-type {
+            background-color: #FFA000;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+        
+        .job-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 1.0em;
+            color: #6D4C41;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: #D32F2F;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            width: 100%;
+        }
+        
+        button:hover {
+            background-color: #B71C1C;
+        }
+        
+        /* 文件上传 */
+        .file-upload {
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        
+        .file-upload:hover {
+            border-color: #D32F2F;
+            background-color: #FFF8E1;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #3E2723;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        /* 响应式 */
+        @media (min-width: 600px) {
+            .job-card {
+                display: flex;
+            }
+            
+            .job-card img {
+                width: 30%;
+                height: auto;
+            }
+            
+            .job-content {
+                width: 70%;
+            }
+            
+            button {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header>
+        <h1>河图元创-相关岗位招聘</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="招聘页面.html">招聘</a>
+    </nav>
+    
+    <!-- 主要内容 -->
+    <main>
+        <!-- 页面介绍 -->
+        <section>
+            <h2>关于我们</h2>
+            <p>我们致力于将传统戏剧文化等非遗技艺与现代数字技术相结合，打造独特的文化体验。诚邀各界精英加入我们，一起传承和发扬中华民族的瑰宝。</p>
+        </section>
+
+        <!-- 职位列表 -->
+        <section>
+            <h2>招聘职位</h2>
+            
+            <!-- 非遗手艺人岗位 -->
+            <div class="job-card">
+                <img src="./相关图片素材\招聘-传承人.jpg" alt="非遗手艺人工作场景">
+                <div class="job-content">
+                    <div class="job-title">
+                        <h3>非遗手艺人岗位</h3>
+                        <span class="job-type">全职</span>
+                    </div>
+                    <p>我们正在寻找对戏剧文化等非遗文化有深厚理解和精湛技艺的手艺人。您将参与到非遗文化相关产品的创作和制作中，通过您的双手将传统技艺发扬光大。</p>
+                    <div class="job-details">
+                        <div>工作地点：线上</div>
+                        <div>薪资范围：8k-15k</div>
+                        <div>发布日期：2024-05-20</div>
+                        <div>学历要求：不限</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 网页维护者岗位 -->
+            <div class="job-card">
+                <img src="./相关图片素材\招聘-网络维护.jpg" alt="网页维护工作场景">
+                <div class="job-content">
+                    <div class="job-title">
+                        <h3>网页维护者岗位</h3>
+                        <span class="job-type">全职</span>
+                    </div>
+                    <p>负责公司与非遗文化相关网站的日常维护工作，包括页面优化、功能修复等。需要熟悉网页开发技术，对非遗文化有一定的兴趣和了解。</p>
+                    <div class="job-details">
+                        <div>工作地点：线上</div>
+                        <div>薪资范围：10k-18k</div>
+                        <div>发布日期：2024-05-20</div>
+                        <div>学历要求：本科及以上</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 开发技术人员岗位 -->
+            <div class="job-card">
+                <img src="./相关图片素材\招聘-开发.jpg" alt="开发技术人员工作场景">
+                <div class="job-content">
+                    <div class="job-title">
+                        <h3>开发技术人员岗位</h3>
+                        <span class="job-type">全职</span>
+                    </div>
+                    <p>参与非遗文化相关的数字化项目开发，如开发线上非遗展览平台、3D元宇宙空间、非遗文化互动小程序等。要求具备扎实的开发技术功底，熟悉相关开发语言和框架。</p>
+                    <div class="job-details">
+                        <div>工作地点：线上</div>
+                        <div>薪资范围：12k-25k</div>
+                        <div>发布日期：2024-05-20</div>
+                        <div>学历要求：本科及以上</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 提交简历表单 -->
+        <section>
+            <h2>提交简历</h2>
+            <form id="resumeForm">
+                <div>
+                    <label for="name">姓名 <span style="color: red;">*</span></label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div>
+                    <label for="email">邮箱 <span style="color: red;">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div>
+                    <label for="phone">电话</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                
+                <div>
+                    <label for="position">应聘职位 <span style="color: red;">*</span></label>
+                    <select id="position" name="position" required>
+                        <option value="">请选择应聘职位</option>
+                        <option value="非遗手艺人">非遗手艺人</option>
+                        <option value="网页维护者">网页维护者</option>
+                        <option value="开发技术人员">开发技术人员</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="resume">简历内容 <span style="color: red;">*</span></label>
+                    <textarea id="resume" name="resume" rows="5" required placeholder="请简要描述您的工作经验、技能和为什么适合这个职位..."></textarea>
+                </div>
+                
+                <div class="file-upload">
+                    <label for="file-upload">
+                        <span>点击上传简历附件</span>
+                        <input type="file" id="file-upload" name="file" accept=".pdf,.doc,.docx" style="display: none;">
+                    </label>
+                    <p>支持 PDF, DOC, DOCX 格式</p>
+                </div>
+    
+                <button type="submit">提交简历</button>
+            </form>
+        </section>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2025 河图元创-2410250638杨嘉欣 版权所有 | 豫ICP备12345678号 | 联系我们: henu@hetuyuancreative.com</p>
+    </footer>
+    
+    <script>
+        // 表单提交验证
+        const form = document.getElementById('resumeForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const position = document.getElementById('position').value;
+            const resume = document.getElementById('resume').value;
+            
+            if (!name || !email || !position || !resume) {
+                alert('请填写完整的必填信息');
+                return;
+            }
+            
+            // 表单提交
+            alert('简历提交成功！我们会尽快与您联系。');
+            form.reset();
+        });
+        
+        // 文件上传按钮点击
+        document.querySelector('.file-upload label').addEventListener('click', function(e) {
+        });
+        
+        // 文件选择后显示文件名
+        document.getElementById('file-upload').addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const fileLabel = document.querySelector('.file-upload span');
+                fileLabel.textContent = this.files[0].name;
+            }
+        });
+    </script>
+</body>
+</html>
+

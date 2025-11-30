@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>河图元创</title>
+    <style>
+        /* 全局样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Serif SC', serif;
+            background-image: url("./相关图片素材/首页背景2.jpg"); 
+            background-repeat: no-repeat; 
+            background-size: cover;
+            background-attachment: fixed;
+            color: #333;
+        }
+        
+        /* 字体应用 */
+        h1, h2, h3, p, span, a {
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        /* 头部容器 */
+        .header-container {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        
+        .head {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 20px;
+            position: relative;
+            height: 80px;
+        }
+        
+        img {
+            height: 80px;
+            width: 250px;
+            object-fit: contain;
+        }
+        /* 通告栏 */
+        .announcement-bar {
+            background-color: #8B0000;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            overflow: hidden;
+            height: 40px;
+        }
+        
+        .announcement-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            animation: scrollAnnouncement 15s linear infinite;
+        }
+        
+        @keyframes scrollAnnouncement {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        .announcement-icon {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        .announcement-text {
+            font-size: 16px;
+        }
+        
+        .announcement-close {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            transition: transform 0.2s ease;
+        }
+        
+        .announcement-close:hover {
+            transform: translateY(-50%) rotate(90deg);
+        }
+        
+        /* 导航栏样式 */
+        header {
+            margin: 0 auto;
+            background-color: #FCBF95;
+        }
+        
+        ul {
+            list-style: none;
+            font-weight: bold;
+            margin: 0;
+            padding: 0 5px;
+            display: flex;
+            gap: 5px; 
+            justify-content: center;
+        }
+        
+        header ul li {
+            display: inline-block;
+            position: relative;
+        }
+        
+        header ul li a {
+            color: rgb(122, 7, 7);
+            font-weight: bold;
+            text-decoration: none;
+            display: block;
+            padding: 8px 20px;
+            border-radius: 20%;
+            text-align: center;
+            white-space: nowrap;
+        }
+        
+        header ul li ul {
+            display: none;
+            position: absolute;
+            z-index: 101;
+        }
+        
+        header ul li ul li a {
+            color: white;
+            padding: 10px 10px;
+            margin: 3px;
+        }
+        
+        header ul li:hover ul {
+            display: block;
+        }
+        
+        header ul li ul li a:hover {
+            background-color: rgb(246, 247, 234);
+            color: rgb(88, 72, 14);
+            transition: all 0.5s ease;
+        }
+        
+        header ul li a:hover {
+            background-color: rgb(203, 221, 236);
+            color: black;
+            transition: all 0.5s ease;
+        }
+        
+        /* 搜索栏样式 */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            right: 20px;
+            top: 20px;
+        }
+        
+        .search-bar input[type="text"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+            margin-right: 5px;
+        }
+        
+        .search-bar button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #a53f08;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .main-content {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Banner区域 */
+        .banner-container {
+            position: relative;
+            height: 450px;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        
+        .banner-slides {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .banner-slide {
+            min-width: 100%;
+            position: relative;
+        }
+        
+        .banner-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .banner-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.4);
+            color: white;
+            padding: 0 20px;
+        }
+        
+        .banner-content h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .banner-content p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .banner-button {
+            background-color: #8B0000;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .banner-button:hover {
+            background-color: #a53f08;
+        }
+        
+        .banner-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .banner-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .banner-dot.active {
+            background-color: white;
+        }
+        
+        .banner-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .banner-arrow:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        
+        .banner-arrow.prev {
+            left: 20px;
+        }
+        
+        .banner-arrow.next {
+            right: 20px;
+        }
+        
+        /* 通告卡片 */
+        .announcement-cards {
+            max-width: 1200px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .announcement-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .announcement-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .announcement-card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #8B0000;
+            margin-bottom: 10px;
+        }
+        
+        .announcement-card-date {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .announcement-card-content {
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .announcement-card-button {
+            display: inline-block;
+            background-color: #a53f08;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .announcement-card-button:hover {
+            background-color: #8B0000;
+        }
+        /* 方向感应名片 */
+        .shell {
+            position: relative;
+            min-width: 1000px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            transform-style: preserve-3d;
+            perspective: 900px;
+        }
+        
+        .shell .box {
+            position: relative;
+            width: 250px;
+            height: 350px;
+            transition: .3s;
+            overflow: hidden;
+            margin: 30px;
+            transform: rotateY(0);
+            transition-delay: .1s;
+            border-radius: 5px;
+            border: rgb(222, 205, 177) 5px solid;
+        }
+        
+        .shell .box .images img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .shell:hover .box {
+            transform: rotateY(20deg);
+        }
+        
+        .shell .box:hover {
+            transform: rotateY(0deg) scale(1.25);
+            box-shadow: 0 25px 40px rgba(0,0,0,.7);
+            z-index: 1;
+        }
+        
+        .shell .box:hover~.box {
+            transform: rotateY(-20deg);
+        }
+        
+        .shell .box .content {
+            position: absolute;
+            top: 0;
+            width: 90%;
+            height: 100px;
+            z-index: 999;
+            padding: 15px;
+        }
+        
+        .shell .box .content h2 {
+            color: rgb(190, 27, 92);
+            transition: .3s;
+            font-size: 20px;
+            transform: translateY(-100px);
+        }
+        
+        .shell .box:hover .content h2 {
+            transform: translateY(-15px);
+        }
+        
+        .shell .box .content p {
+            color: black;
+            transform: .3s;
+            font-size: 14px;
+            transform: translateY(600px);
+            background-color: rgba(255, 255, 255, .7);
+        }
+        
+        .shell .box:hover .content p {
+            font-weight: bold;
+            color: rgb(190, 27, 92);
+            transform: translateY(150px);
+			padding: 15px;
+        }
+        
+        /* 卡片介绍部分 */
+        .cardbox {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding-top: 80px;
+        }
+        
+        .cardbox>.cardtitle {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .cardbox>.cardtitle>.item {
+            background: linear-gradient(to bottom right, #EA8869, #F7C4AC);
+            height: 80px;
+            min-width: 180px;
+            flex: 1;
+            width: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 28px;
+            box-shadow: 0 0 10px #fff;
+            cursor: pointer;
+        }
+        
+        .cardbox>.cardtitle>.item>img {
+            width: 70px;
+            height: 70px;
+            border-radius: 100%;
+            transition: .5s;
+            object-fit: cover;
+        }
+        
+        .cardbox>.cardtitle>.item>span {
+            color: #fff;
+            font-size: 18px;
+            letter-spacing: 5px;
+            margin-right: 10px;
+            font-weight: bold;
+            transition: .5s;
+        }
+        
+        .cardbox>.cardtitle>.checked {
+            background: linear-gradient(to bottom right, #D8717D, #F2B3AF);
+            box-shadow: 0 0 28px #fff;
+        }
+        
+        .cardbox>.cardtitle>.checked>span {
+            margin-right: 35px;
+        }
+        
+        .cardbox>.cardtitle>.checked>img {
+            transform: scale(1.5);
+        }
+        
+        .cardcontent {
+            background-color: rgba(255, 255, 255, .9);
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+            border-radius: 30px;
+            color: #3B559B;
+            opacity: 0;
+            transition: .5s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .che {
+            opacity: 1;
+            height: auto;
+            max-height: 1200px;
+            padding: 40px;
+        }
+        
+        .cardcontent>.smallTit {
+            font-size: 20px;
+            color: #8B0000;
+        }
+        
+        .cardcontent>h1 {
+            font-size: 50px;
+            margin: 20px 0;
+            color: #3B559B;
+        }
+        
+        .cardcontent>.body {
+            font-size: 18px;
+            line-height: 2;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+        
+        .imgList {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 30px;
+        }
+        
+        .imgList>img {
+            height: auto;
+            max-height: 300px;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .cardcontent:nth-child(2) .imgList img,
+        .cardcontent:nth-child(3) .imgList img,
+        .cardcontent:nth-child(4) .imgList img {
+            width: calc(50% - 10px);
+        }
+        
+        .cardcontent:nth-child(5) .imgList img {
+            width: calc(25% - 15px);
+        }
+        
+        .imgList>img:hover {
+            transform: translateY(-10px); 
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15); 
+            filter: brightness(1.05); 
+        }
+
+        /*弹幕部分*/
+		.floatWard{
+			display: flex;
+			overflow: hidden;
+			color: white;
+			mask-image: linear-gradient(90deg,transparent,#B31049 20%,#6A082A 80%,transparent);
+		}
+		.floatWard div{
+			white-space: nowrap;
+			animation: animate var(--t) linear infinite;
+			display: inline-flex;
+		}
+		.floatWard div:nth-child(2){
+			animation: animate2 var(--t) linear infinite;
+			animation-delay: calc(var(--t)/-2);
+		}
+		@keyframes animate{
+			from{
+				transform:translate(100%);
+			}
+			to{
+				transform: translate(-100%);
+			}
+		}
+		@keyframes animate2{
+			from{
+				transform:translate(0);
+			}
+			to{
+				transform: translate(-200%);
+			}
+		}
+		.floatWard div span{
+			font-size: 20px;
+			display: inline-flex;
+			margin: 30px;
+			letter-spacing: .2em;
+			background-color: #8B0009;
+			color: white;
+			padding: 5px 10px;
+			border-radius: 5px;
+		}
+
+        /* 戏剧介绍部分 */
+        .Introduction {
+            margin-top: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .OperaSection {
+            margin-bottom: 60px;
+        }
+        
+        .OperaVideo {
+            float: right;
+            margin: 0 0 20px 30px;
+            width: 40%;
+            min-width: 300px;
+            max-width: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+        
+        .Opera {
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+        
+        .Opera h2 {
+            font-size: 1.8rem;
+            color: #8B0000;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .Opera p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .shell {
+                min-width: auto;
+            }
+            
+            .OperaVideo {
+                float: none;
+                width: 100%;
+                margin: 0 0 20px 0;
+            }
+            
+            .Opera h2 {
+                font-size: 1.5rem;
+            }
+            
+            .cardbox>.cardtitle>.item {
+                min-width: 120px;
+            }
+            
+            .cardcontent>h1 {
+                font-size: 36px;
+            }
+        }
+        
+        /* 版权栏 */
+        .copyright {
+            margin-top: 80px;
+            padding: 20px 0;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 通告栏 -->
+    <div class="announcement-bar">
+        <div class="announcement-content">
+            <svg class="announcement-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 8V12L14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="announcement-text"> 庆祝非遗文化周，AI创作工具限时免费使用！立即体验 →</span>
+            <svg class="announcement-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 8V12L14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="announcement-text"> 元宇宙展馆全新上线，体验沉浸式非遗文化 →</span>
+            <svg class="announcement-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 8V12L14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="header-container">
+        <div class="head">
+            <img src="相关图片素材\微信图片_20250426162815.jpg">    
+            <!--导航栏-->
+            <header>
+                <ul>
+                    <li>
+                        <a href="Recruit.html" target="_blank">招聘</a>
+                    </li>
+                    <li>
+                        <a href="Login.html" target="_blank">登录</a>
+                    </li>
+                    <li>
+                        <a href="index.html">首页</a>
+                    </li>
+                    <li>
+                        <a href="Volunteer.html">豫韵学子</a> 
+                    </li>
+                    <li>
+                        <a href="#">菜单</a>
+                        <!--子菜单-->
+                        <ul>
+                            <li><a href="Creation.html" target="_blank">数字基因库及创作中心</a></li>
+                            <li><a href="Metaverse.html" target="_blank">元宇宙展馆</a></li>
+                            <li><a href="Community.html" target="_blank">知识分享社区</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="Service.html" target="_blank">客服</a>
+                    </li>
+                </ul>
+            </header>
+            <!-- 搜索栏 -->
+            <div class="search-bar">
+                <input type="text" placeholder="搜索">
+                <button type="submit">搜索</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Banner区域 -->
+    <div class="banner-container">
+        <div class="banner-slides" id="bannerSlides">
+            <div class="banner-slide">
+                <img src="相关图片素材\Banner1.jpg" alt="非遗文化传承">
+                <div class="banner-content">
+                    <h2>AI赋能非遗，传承中华文化</h2>
+                    <p>利用先进技术，让传统艺术焕发新生，打造文化传承新方式</p>
+                    <a href="Creation.html" target="_blank" class="banner-button">立即体验</a>
+                </div>
+            </div>
+            <div class="banner-slide">
+                <img src="相关图片素材\Banner2.jpg" alt="元宇宙展馆">
+                <div class="banner-content">
+                    <h2>沉浸式元宇宙展馆</h2>
+                    <p>突破时空限制，探索非遗文化的无限可能</p>
+                    <a href="Metaverse.html" target="_blank" class="banner-button">参观展馆</a>
+                </div>
+            </div>
+            <div class="banner-slide">
+                <img src="相关图片素材\Banner3.jpg" alt="知识分享社区">
+                <div class="banner-content">
+                    <h2>知识分享社区</h2>
+                    <p>汇聚文化爱好者，共同探索非遗文化的魅力</p>
+                    <a href="Community.html" target="_blank" class="banner-button">加入社区</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="banner-controls" id="bannerControls">
+            <div class="banner-dot active" onclick="goToSlide(0)"></div>
+            <div class="banner-dot" onclick="goToSlide(1)"></div>
+            <div class="banner-dot" onclick="goToSlide(2)"></div>
+        </div>
+        
+        <div class="banner-arrow prev" onclick="prevSlide()"></div>
+        <div class="banner-arrow next" onclick="nextSlide()">></div>
+    </div>
+    
+    <!-- 通告卡片 -->
+    <div class="announcement-cards">
+        <div class="announcement-card">
+            <div class="announcement-card-title">非遗文化周盛大开幕</div>
+            <div class="announcement-card-date">2024-05-15</div>
+            <div class="announcement-card-content">
+                5月15日至25日，我们将举办非遗文化周活动，邀请多位非遗传承人现场展示技艺，更有AI创作大赛等你来参与！
+            </div>
+            <a href="#" class="announcement-card-button">了解详情</a>
+        </div>
+        
+        <div class="announcement-card">
+            <div class="announcement-card-title">元宇宙展馆全新上线</div>
+            <div class="announcement-card-date">2024-05-01</div>
+            <div class="announcement-card-content">
+                我们的元宇宙展馆现已正式上线，用户可以通过VR设备沉浸式体验非遗文化的魅力，还能参与互动创作！
+            </div>
+            <a href="#" class="announcement-card-button">立即体验</a>
+        </div>
+        
+        <div class="announcement-card">
+            <div class="announcement-card-title">AI创作工具更新</div>
+            <div class="announcement-card-date">2024-04-20</div>
+            <div class="announcement-card-content">
+                我们的AI创作工具新增了30余种传统纹样和10余种戏曲风格，快来看看有没有你感兴趣的吧，让你的创作更加丰富多彩！
+            </div>
+            <a href="#" class="announcement-card-button">查看更新</a>
+        </div>
+    </div>
+    
+    <!-- 轮播图 -->
+    <div class="main-content">
+        <div class="shell">
+            <div class="box">
+                <div class="images">
+                    <img src="相关图片素材\轮播图1-年画.jpg" alt="">
+                </div>
+                <div class="content">
+                    <h2>Q版手绘</h2>
+                    <p>可爱的Q版手绘，儿童画风，线条简单，颜色亮丽，适合亲子项目。</p>
+                </div>
+            </div>
+            <div class="box">
+                <div class="images">
+                    <img src="相关图片素材\轮播图2-敦煌画风.jpg" alt="">
+                </div>
+                <div class="content">
+                    <h2>敦煌画风</h2>
+                    <p>新极繁主义，敦煌艺术风格插画，国风动画，与神话故事九色鹿相结合，现代色彩搭配，象征吉祥和幸运。</p>
+                </div>
+            </div>
+            <div class="box">
+                <div class="images">
+                    <img src="相关图片素材\轮播图3-文创设计.jpg" alt="">
+                </div>
+                <div class="content">
+                    <h2>盲盒文创设计</h2>
+                    <p>泡泡玛特人物盲盒设计，结合国风元素，融合中华优秀传统文化，可爱灵动，文化与商业相结合。</p>
+                </div>
+            </div>
+            <div class="box">
+                <div class="images">
+                    <img src="相关图片素材\轮播图4-IP设计.jpg" alt="">
+                </div>
+                <div class="content">
+                    <h2>IP/Logo设计</h2>
+                    <p>上为含青铜元素的Logo设计，下为一个苗族少女的IP形象设计，风格简洁易懂。</p>
+                </div>
+            </div>
+            <div class="box">
+                <div class="images">
+                    <img src="相关图片素材\轮播图5-二创.jpg" alt="">
+                </div>
+                <div class="content">
+                    <h2>二次创作</h2>
+                    <p>将中国古风元素与初音未来相结合，用户也可对自己喜欢的动漫人物角色等，通过AI工具进行二创。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 卡片内容区 -->
+    <div class="cardbox">
+        <div class="cardtitle">
+            <div class="item checked">
+                <span>关于我们~</span>
+                <img src="./相关图片素材/Kitty关于我们.jpg" alt="" />
+            </div>
+            <div class="item">
+                <span>创作中心库</span>
+                <img src="./相关图片素材/Kitty创作中心.jpg" alt="" />
+            </div>
+            <div class="item">
+                <span>元宇宙展馆</span>
+                <img src="./相关图片素材/Kitty元宇宙展馆.jpg" alt="" />
+            </div>
+            <div class="item">
+                <span>知识分享区</span>
+                <img src="./相关图片素材/Kitty分享社区.jpg" alt="" />
+            </div>
+        </div>
+        
+        <div class="cardcontent che">
+            <div class="smallTit">开启戏剧文化传承新征程</div>
+            <h1>豫湘吉冀艺境通 ·非遗万象多维集</h1>
+            <div class="body">
+                从知识分享到文化共创：用AI赋能、区块链确权、社群孵化，打造一个让传统文化‘活起来’的创作经济生态。
+                <br>三维教育赋能非遗新生:眼睛看得到(沉浸式体验)→ 双手做得到(AI工具)→ 钱包可持续(商业闭环)
+                <br>"让非遗走出深山 让传统连接未来"
+            </div>
+            <div class="imgList">
+                <img src="./相关图片素材/关于我们-非遗.jpg" alt="" />
+                <img src="./相关图片素材/关于我们-非遗2.jpg" alt="" />
+            </div>
+        </div>
+        
+        <div class="cardcontent">
+            <div class="smallTit">中华多文化传承赋能者</div>
+            <h1>AI/AR创作工具+文化灵感库</h1>
+            <div class="body">
+                AI文化合规检测：自动识别作品是否涉及文化敏感元素（如民族符号误用），提示修改建议，避免争议。
+                <br>AR文化创作工具：用户可用手机扫描现实物品（如茶杯），叠加传统纹样进行DIY设计，直接生成商品效果图。
+                <br>接入AI工具（如AI纹样生成、作品版权上链、虚拟展厅搭建），工具属性强，帮助用户直接降低创作门槛，例如将河南非遗/文物元素数字化为可调用的设计素材库，支持AI、AR混合创作。
+            </div>
+            <div class="imgList">
+                <img src="./相关图片素材/卡片Kitty画家2.jpg" alt="" />
+                <img src="./相关图片素材/卡片Kitty画家1.jpg" alt="" />
+                <img src="./相关图片素材/卡片Kitty画家3.jpg" alt="" />
+            </div>
+        </div>
+        
+         <div class="cardcontent">
+            <div class="smallTit">让传统文化‘活起来’的创作经济生态</div>
+            <h1>非遗技艺传承游戏化系统及虚拟展厅搭建</h1>
+            <div class="body">
+                与元宇宙平台（如百度希壤、网易瑶台）合作，搭建限时虚拟非遗戏剧主题馆：  
+                <br>用户以数字分身进入，体验虚拟戏台表演、数字化非遗工坊。用户也可自定义3D虚拟展厅展示作品，其他用户可"沉浸式参观"、打赏或购买。
+                虚实联动：虚拟场景中解锁的成就可兑换线下实物折扣券或限量数字藏品。  
+                <br>符合年轻用户"虚拟身份社交"需求。
+            </div>
+            <div class="imgList">
+                <img src="./相关图片素材/虚拟展馆1.png" alt="" />
+                <img src="./相关图片素材/虚拟展馆2.png" alt="" />
+            </div>
+        </div>
+
+        <div class="cardcontent">
+            <div class="smallTit">文化的车间——提供从灵感、工具到市场的全套生产线。</div>
+            <h1>文化IP共创工坊</h1>
+            <div class="body">
+                用户可发起"主题创作众筹"（如"敦煌飞天再设计"），社区投票选出最佳方案，孵化成实体文创产品，区块链记录贡献值并根据多人协作智能合约进行动态分润，减少纠纷。
+                高人气作品可发起线下展览/剧本杀众筹，社区用户既是投资者也是参与者。
+                <br>通过智能合约+IPFS分布式存储，以非遗数字资产银行+版权区块链存证为模式，为每件作品上链确权，解决文化创作抄袭痛点，用户可一键申请数字证书，支持后续IP授权追踪。作品自动生成NFT证书--用户通过创作、学习、交易等行为积累"文化能量值"，兑换代表不同文化领域的NFT徽章(如"非遗守护者""国潮设计师")，增强归属感。
+            </div>
+            <div class="imgList">
+                <img src="./相关图片素材/IP设计1.png" alt="" />
+                <img src="./相关图片素材/IP设计2.png" alt="" />
+                <img src="./相关图片素材/IP设计3.jpg" alt="" />
+                <img src="./相关图片素材/IP设计4.jpg" alt="" />
+            </div>
+        </div>
+    </div>
+    
+
+        <!--弹幕部分-->>
+        <div class="floatWard" style="--t:32s">
+			<div>
+				
+				<span>《牡丹亭・游园》：原来姹紫嫣红开遍，似这般都付与断井颓垣。</span>
+				<span>《牡丹亭・游园》：良辰美景奈何天，赏心乐事谁家院！</span>
+			</div>
+			<div>
+				<span>《天仙配》：树上的鸟儿成双对，绿水青山带笑颜。</span>
+				<span>《女驸马》：我也曾赴过琼林宴，我也曾打马御街前。</span>
+				<span>《打猪草》：郎对花，姐对花，一对对到田埂下。</span>
+			</div>
+		</div>
+        <div class="floatWard" style="--t:30s">
+			<div>
+				<span>《红楼梦》：天上掉下个林妹妹，似一朵轻云刚出岫。</span>
+				<span>《梁祝》：十八相送到长亭，你我好比鸳鸯鸟，比翼双飞在人间。</span>
+				<span>《红楼梦・焚稿》：早知人情比纸薄，我懊悔留存诗帕到如今！</span>
+			</div>
+			<div>
+				<span>《牡丹亭・惊梦》：则为你如花美眷，似水流年。</span>
+				<span>《桃花扇・余韵》：眼看他起朱楼，眼看他宴宾客，眼看他楼塌了！</span>
+				<span>《玉堂春》：未开言不由人珠泪滚滚，尊一声列位官细听分明。</span>
+				
+			</div>
+		</div>
+		<div class="floatWard" style="--t:32s">
+			<div>
+				<span>《花木兰》:刘大哥讲话理太偏，谁说女子享清闲</span>
+				<span>《穆桂英挂帅》:辕门外三声炮如同雷震，天波府里走出来我保国臣</span>
+				<span>《程婴救孤》:“为救孤我舍去惊哥亲生子，为救孤我妻思儿赴黄泉”</span>
+			</div>
+			<div>
+				<span>《白蛇传》：西子湖依然是当年一样，见断桥桥未断痛断肝肠</span>
+				<span>《白蛇传》：鱼水情山盟海誓全然不讲，一阵阵咬银牙埋怨许郎</span>
+				<span>《刘海砍樵》：胡大姐你随着我来走啰，刘海哥你带路往前行啰。</span>
+			</div>
+		</div>
+
+    <!-- 戏剧介绍部分 -->
+    <div class="Introduction">
+        <div class="OperaSection">
+            <div class="OperaVideo" style="margin-top: 55px;">
+                <video controls poster="./相关图片素材/戏曲文化封面.png">
+                    <source src="./相关图片素材/宣传视频.mp4" type="video/mp4"> 
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-chinese-traditional-opera-performance-37115-large.mp4" type="video/mp4"> <!-- 备用远程视频 -->
+                </video>
+            </div>
+            
+            <div class="Opera">
+                <h2 style="margin-top: -7px;">中国戏曲文化</h2>
+                <p>中国戏曲文化源远流长，是中华民族艺术宝库中一颗璀璨的明珠，承载着千年的历史记忆与文化基因。它融合了文学、音乐、舞蹈、美术、武术、杂技等多种艺术形式，以独特的表演体系与审美价值，成为世界戏剧文化的重要组成部分。</p>
+                <p>戏曲的起源可追溯至上古时期的歌舞祭祀活动，历经秦汉百戏、唐代歌舞戏、宋元杂剧的演变，在明清时期迎来鼎盛。作为综合性艺术，戏曲以 "唱、念、做、打" 为表演手段，"生、旦、净、丑" 四大行当各展风采，通过程式化的动作、虚拟性的场景与夸张的妆容服饰，在方寸舞台上演绎人生百态。京剧的华丽大气、昆曲的典雅细腻、豫剧的豪迈奔放、越剧的柔美婉约……300 多个剧种各具特色，既彰显着中华文化的统一性，又展现出鲜明的地域文化差异。</p>
+                <p>戏曲不仅是娱乐方式，更是文化传承的重要载体。剧目内容多取材于历史故事、民间传说与文学经典，如《窦娥冤》《西厢记》《牡丹亭》等，传递着中华民族的道德观念、价值取向与审美理想。脸谱艺术中，红脸忠义、白脸奸诈、黑脸刚正，以色彩隐喻人物性格；水袖轻扬、折扇翻转，一招一式皆蕴含文化深意。</p>
+            </div>
+            
+            <div class="OperaVideo" style="margin-top: 30px;">
+                <video controls poster="./相关图片素材/豫剧封面.png">
+                    <source src="./相关图片素材/戏歌.mp4" type="video/mp4"> 
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-chinese-traditional-opera-performance-37115-large.mp4" type="video/mp4"> <!-- 备用远程视频 -->
+                </video>
+            </div>
+            
+            <div class="Opera">
+                <h2>豫剧</h2>
+                <p>豫剧，作为中国五大戏曲剧种之一，在华夏戏曲文化版图中占据着举足轻重的地位。它还有河南梆子、河南高调、河南讴等别称，在豫西山区被亲切地叫做 "靠山吼" 。</p>
+                <p>豫剧的历史可以追溯到明朝，在清朝中后期逐渐形成并蓬勃发展起来。它以河南方言为根基，大胆吸收秦腔、河南花鼓戏等地方戏曲的特色，还与其他剧种相互借鉴、融合，最终形成了别具一格的艺术风格。在 20 世纪初，豫剧开始走出河南，迈向全国舞台，上世纪 40 年代后，已然成为中国戏曲舞台上的主要剧种之一。其流行范围极为广泛，在河南、山东、安徽等地深受民众喜爱，尤其在河南豫东地区，更是当地民众文化生活的重要组成部分。</p>
+                <p>豫剧深受黄河流域地方文化的滋养，博采昆腔、吹腔、皮簧等梆子声腔剧种之长，兼收河南民间音乐与说唱艺术元素，造就了其唱腔细腻、语言朴实、风格俚俗自然的独特魅力，从表演风格、人物行当到音乐唱腔，都散发着浓郁的河南乡土气息。</p>
+                <p>豫剧音乐极为丰富，不仅有众多唱腔板式，调门唱法也多达数十种，还容纳了格式不一、长短不同的多种曲牌，进而催生出众多表演流派。在舞台上，经典剧目层出不穷，像《辕门斩子》《穆桂英挂帅》《红娘》等，历经岁月洗礼，依然久演不衰。豫剧界也涌现出常香玉、王润枝、马金凤等一批批名家，他们以精湛技艺和独特风格，推动着豫剧不断发展。</p>
+                <p>豫剧的伴奏乐器丰富多样，包含京胡、板胡、扬琴、二胡、唢呐等文场乐器，以及大鼓、小鼓、锣等武场乐器 。其唱腔按地域划分，有豫东调、豫西调、祥符调、沙河调等多种流派，每个流派都有其独特韵味 。例如，豫东调流行于商丘一带，风格独特，与当地语言发音和群众欣赏习惯紧密相连；豫西调主要在豫西地区流传，多以现实题材和家庭故事为主，注重人物形象塑造与情感表达 。</p>
+                <p>2006 年 5 月 20 日，豫剧被列入中国国家级非物质文化遗产名录，此后，其传承和保护工作不断推进，2008 年和 2021 年，又分别有相关流派和项目入选国家级非遗名录。在新时代，豫剧也在不断创新发展，结合国际文化趋势，改编创作现代豫剧，努力开拓更为广阔的发展空间，持续绽放着独特的艺术光彩。</p>
+            </div>
+            
+            <div class="OperaVideo" style="float: left; margin: 0 30px 20px 0;margin-top: 20px;">
+                <video controls poster="./相关图片素材/非遗文化封面.jpg">
+                    <source src="./相关图片素材/非遗文化.mp4" type="video/mp4"> 
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-traditional-chinese-dragon-dance-performance-37113-large.mp4" type="video/mp4"> <!-- 备用远程视频 -->
+                </video>
+            </div>
+            
+            <div class="Opera">
+                <h2>中国非物质文化遗产</h2>
+                <p>中国非物质文化遗产是中华文化的瑰宝，是中华民族智慧与创造力的结晶。这些珍贵的文化遗产涵盖了传统技艺、表演艺术、民俗活动、传统知识等多个领域，见证了中华文明的悠久历史和多元魅力。</p>
+                <p>作为世界上拥有非物质文化遗产数量最多的国家，中国的非遗项目丰富多样。截至2023年，中国共有43个项目列入联合国教科文组织非物质文化遗产名录（名册），其中包括昆曲、古琴艺术、端午节、中医针灸等世界级文化遗产。这些项目不仅是中国的文化财富，更是全人类共同的文化遗产。</p>
+                <p>非物质文化遗产的保护与传承对于维护文化多样性、促进社会可持续发展具有重要意义。近年来，中国政府高度重视非遗保护工作，出台了一系列政策措施，推动非遗与现代生活相结合，实现创造性转化和创新性发展。通过建立非遗保护名录体系、建设非遗传承基地、开展非遗进校园进社区等活动，越来越多的非遗项目得到了有效保护和传承。</p>
+                <p>在数字时代，科技为非遗保护与传承带来了新的机遇。虚拟现实、增强现实、人工智能等技术的应用，让非遗项目以更加生动、直观的方式呈现给大众。例如，通过VR技术可以沉浸式体验传统手工艺的制作过程，通过AI技术可以对非遗音乐进行修复和再创作。这些创新手段不仅提升了非遗的传播力和影响力，也为非遗的保护与传承开辟了新的路径。</p>
+                <p>河图元创平台致力于利用先进的数字技术，为非遗文化的保护、传承与创新提供全方位支持。我们打造了非遗数字资源库，收集整理了大量珍贵的非遗资料；开发了AI创作工具，帮助非遗传承人将传统技艺与现代设计相结合；建设了元宇宙展馆，让用户可以在虚拟空间中沉浸式体验非遗文化的魅力。我们相信，通过科技与文化的深度融合，能够让更多人了解非遗、热爱非遗，共同守护这一珍贵的文化遗产。</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    
+    <!-- 版权栏 -->
+    <div class="copyright">
+        <p>© 2025 河图元创 版权所有 | 备案号：ICP豫12345678号</p>
+        <p>联系我们：henu@hetuyuancreative.com | 地址：河南省开封市河南大学金明校区</p>
+    </div>
+    
+    <script>
+        let titlist = document.querySelectorAll('.cardtitle>.item');
+        let conlist = document.querySelectorAll('.cardcontent');
+        
+        for(let i = 0; i < titlist.length; i++){
+            titlist[i].onclick = function(){
+                clear();
+                titlist[i].classList.add('checked');
+                conlist[i].classList.add('che');
+            }
+        }
+        
+        function clear(){
+            for(let i = 0; i < titlist.length; i++){
+                titlist[i].classList.remove('checked');
+                conlist[i].classList.remove('che');
+            }
+        }
+        
+        // Banner轮播图功能
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.banner-slide');
+        const dots = document.querySelectorAll('.banner-dot');
+        const slidesContainer = document.getElementById('bannerSlides');
+        
+        function updateSlide() {
+            slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // 更新指示器
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateSlide();
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateSlide();
+        }
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlide();
+        }
+        
+        // 自动轮播
+        let slideInterval = setInterval(nextSlide, 5000);
+        
+        // 鼠标悬停时暂停自动轮播
+        document.querySelector('.banner-container').addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
+        
+        // 鼠标离开时恢复自动轮播
+        document.querySelector('.banner-container').addEventListener('mouseleave', () => {
+            slideInterval = setInterval(nextSlide, 5000);
+        });
+        
+    </script>
+</body>
+</html>

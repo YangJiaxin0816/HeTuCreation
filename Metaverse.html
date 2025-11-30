@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>河图元创 元宇宙豫剧展厅</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  
+  <!-- 配置Tailwind主题 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // 豫剧非遗主题色
+            'opera-red': '#B82222',      // 豫剧传统朱砂红
+            'opera-gold': '#E6B800',     // 豫剧服饰金色
+            'opera-brown': '#5C3311',    // 传统木色
+            'opera-light': '#F9F2E8',    // 浅色背景
+            'opera-dark': '#2D1B00',     // 深色文字
+          },
+          fontFamily: {
+            'opera': ['"Ma Shan Zheng"', 'cursive', 'sans-serif'],
+            'sans': ['"Noto Serif SC"', 'serif'], // 改为衬线字体，更显成熟大气
+            'heading': ['"Noto Serif SC"', 'serif'], // 标题专用字体
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .opera-shadow {
+        box-shadow: 0 4px 20px rgba(184, 34, 34, 0.2);
+      }
+      .gold-gradient {
+        background: linear-gradient(135deg, #E6B800 0%, #FFD700 50%, #E6B800 100%);
+      }
+      .red-gradient {
+        background: linear-gradient(135deg, #B82222 0%, #D43737 100%);
+      }
+      .product-list-view .product-item {
+        flex-direction: row;
+        height: 200px;
+      }
+      .product-list-view .product-item img {
+        width: 30%;
+        height: 100%;
+      }
+      .product-list-view .product-info {
+        width: 70%;
+        padding: 0 1rem;
+      }
+    }
+  </style>
+  
+  <!-- 引入中文字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-opera-light text-opera-dark font-sans">
+  <!-- 导航栏 -->
+  <header id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-sm shadow-md">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <i class="fa fa-music text-opera-red text-2xl"></i>
+        <h1 class="text-xl md:text-2xl font-opera text-opera-red">河图元创 元宇宙豫剧展厅</h1>
+      </div>
+      
+      <!-- 桌面导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="font-medium hover:text-opera-red transition-colors duration-300">首页</a>
+        <a href="#metaverse" class="font-medium hover:text-opera-red transition-colors duration-300">元宇宙展厅</a>
+        <a href="#products" class="font-medium hover:text-opera-red transition-colors duration-300">文创产品</a>
+        <a href="#events" class="font-medium hover:text-opera-red transition-colors duration-300">活动资讯</a>
+        <a href="#contact" class="font-medium hover:text-opera-red transition-colors duration-300">联系我们</a>
+      </nav>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="menuBtn" class="md:hidden text-opera-dark text-xl">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div id="mobileMenu" class="md:hidden hidden bg-white border-t">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="index.html" class="py-2 font-medium hover:text-opera-red transition-colors duration-300">首页</a>
+        <a href="#metaverse" class="py-2 font-medium hover:text-opera-red transition-colors duration-300">元宇宙展厅</a>
+        <a href="#products" class="py-2 font-medium hover:text-opera-red transition-colors duration-300">文创产品</a>
+        <a href="#events" class="py-2 font-medium hover:text-opera-red transition-colors duration-300">活动资讯</a>
+        <a href="#contact" class="py-2 font-medium hover:text-opera-red transition-colors duration-300">联系我们</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区域 -->
+  <section class="relative h-screen flex items-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img src="./相关图片素材/元宇宙展厅封面.jpg" 
+           alt="豫剧表演" 
+           class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-r from-opera-dark/70 to-opera-dark/40"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 z-10 relative">
+      <div class="max-w-2xl">
+        <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-opera text-white leading-tight text-shadow mb-6">
+          传承豫剧经典<br>
+          <span class="text-opera-gold">开启元宇宙新体验</span>
+        </h1>
+        <p class="text-[clamp(1rem,2vw,1.25rem)] text-white/90 mb-8 max-w-xl">
+          探索传统豫剧与数字技术的完美融合，通过元宇宙展厅、AR体验等创新方式，感受非遗文化的魅力与活力。
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#metaverse" class="px-8 py-3 rounded-full bg-opera-red text-white font-medium hover:bg-opera-red/90 transform hover:scale-105 transition-all duration-300 shadow-lg">
+            进入元宇宙展厅
+          </a>
+          <a href="#products" class="px-8 py-3 rounded-full bg-transparent border-2 border-white text-white font-medium hover:bg-white/10 transform hover:scale-105 transition-all duration-300">
+            浏览文创产品
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+      <a href="#metaverse" class="flex flex-col items-center">
+        <span class="mb-2 text-sm">了解更多</span>
+        <i class="fa fa-angle-down text-2xl"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- 元宇宙展厅 -->
+  <section id="metaverse" class="py-20 bg-gradient-to-b from-opera-light to-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-opera text-opera-red mb-4">元宇宙豫剧展厅</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">突破时空限制，通过数字技术沉浸式体验豫剧艺术魅力，打造非遗传承新方式</p>
+        <div class="w-24 h-1 bg-opera-gold mx-auto mt-6"></div>
+      </div>
+      
+      <!-- 静态图片背景 -->
+      <div class="relative h-[500px] md:h-[600px] mb-16 rounded-xl overflow-hidden shadow-2xl opera-shadow">
+        <!-- 虚拟戏台背景图 -->
+        <img src="./相关图片素材/虚拟戏台.jpg" alt="虚拟戏台背景" class="w-full h-full object-cover">
+        
+        <!-- 文字和按钮覆盖层 -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-8">
+          <h3 class="text-2xl md:text-3xl font-opera text-white mb-4">虚拟戏台与数字工坊</h3>
+          <p class="text-white/90 mb-6 max-w-2xl">创建您的数字分身，登上虚拟戏台表演经典剧目，或在数字化非遗工坊学习传统技艺</p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#" class="px-6 py-3 rounded-full bg-opera-red text-white font-medium hover:bg-opera-red/90 transition-all duration-300 flex items-center">
+              <i class="fa fa-vr-cardboard mr-2"></i> 立即进入
+            </a>
+            <a href="#" class="px-6 py-3 rounded-full bg-white/20 backdrop-blur-sm text-white font-medium hover:bg-white/30 transition-all duration-300 border border-white/40">
+              了解更多 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 元宇宙功能介绍 -->
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+          <div class="w-16 h-16 rounded-full bg-opera-red/10 flex items-center justify-center text-opera-red text-2xl mb-6">
+            <i class="fa fa-user-circle-o"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-4 text-opera-brown">数字分身体验</h3>
+          <p class="text-gray-600 mb-4">创建个性化数字分身，自由行走于虚拟展厅，与其他用户互动交流，共同探索豫剧世界。</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-center text-gray-700">
+              <i class="fa fa-check text-opera-gold mr-2"></i> 自定义形象与服饰
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i class="fa fa-check text-opera-gold mr-2"></i> 动作捕捉与表情模拟
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i class="fa fa-check text-opera-gold mr-2"></i> 多人在线互动体验
+            </li>
+          </ul>
+        </div>
+        
+        <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+          <div class="w-16 h-16 rounded-full bg-opera-red/10 flex items-center justify-center text-opera-red text-2xl mb-6">
+            <i class="fa fa-stagefright"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-4 text-opera-brown">虚拟戏台表演</h3>
+          <p class="text-gray-600 mb-4">登上虚拟戏台，体验经典豫剧角色表演，系统提供唱腔指导和动作提示，感受舞台魅力。</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-center text-gray-700">
+              <i class="fa fa-check text-opera-gold mr-2"></i> 经典剧目互动演绎
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i class="fa fa-check text-opera-gold mr-2"></i> 实时唱腔评分系统
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i class="fa fa-check text-opera-gold mr-2"></i> 观众互动与打赏功能
+            </li>
+          </ul>
+        </div>
+        
+        <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+          <div class="w-16 h-16 rounded-full bg-opera-red/10 flex items-center justify-center text-opera-red text-2xl mb-6">
+            <i class="fa fa-cube"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-4 text-opera-brown">自定义3D展厅</h3>
+          <p class="text-gray-600 mb-4">创建个人3D展厅展示豫剧相关作品，邀请他人参观，支持作品打赏与购买功能。</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-center text-gray-700">
+              <i class="fa fa-check text-opera-gold mr-2"></i> 简易展厅搭建工具
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i class="fa fa-check text-opera-gold mr-2"></i> 作品3D数字化展示
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i class="fa fa-check text-opera-gold mr-2"></i> 沉浸式参观体验
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- 数据统计 -->
+      <div class="mt-20 bg-white rounded-xl p-8 shadow-lg">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div class="p-4">
+            <div class="text-4xl md:text-5xl font-bold text-opera-red mb-2 counter" data-target="50000">0</div>
+            <p class="text-gray-600">注册用户</p>
+          </div>
+          <div class="p-4">
+            <div class="text-4xl md:text-5xl font-bold text-opera-red mb-2 counter" data-target="12500">0</div>
+            <p class="text-gray-600">虚拟展厅</p>
+          </div>
+          <div class="p-4">
+            <div class="text-4xl md:text-5xl font-bold text-opera-red mb-2 counter" data-target="12000">0</div>
+            <p class="text-gray-600">数字分身</p>
+          </div>
+          <div class="p-4">
+            <div class="text-4xl md:text-5xl font-bold text-opera-red mb-2 counter" data-target="85000">0</div>
+            <p class="text-gray-600">参观人次</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 文创产品 -->
+  <section id="products" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-opera text-opera-red mb-4">非遗文创产品</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">校地共创，融合黄河文化与河南文旅IP，打造独特豫剧非遗文创</p>
+        <div class="w-24 h-1 bg-opera-gold mx-auto mt-6"></div>
+      </div>
+      
+      <!-- 产品分类和视图切换 -->
+      <div class="flex flex-wrap justify-between items-center gap-4 mb-12">
+        <div class="flex flex-wrap gap-4">
+          <button class="px-6 py-2 rounded-full bg-opera-red text-white">全部产品</button>
+          <button class="px-6 py-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">沉浸式体验盒</button>
+          <button class="px-6 py-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">校史限定款</button>
+          <button class="px-6 py-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">戏曲服饰周边</button>
+          <button class="px-6 py-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">数字藏品</button>
+        </div>
+        
+        <!-- 视图切换按钮 -->
+        <div class="flex gap-2 bg-gray-100 p-1 rounded-full">
+          <button id="gridViewBtn" class="px-4 py-2 rounded-full bg-white shadow-sm text-opera-dark">
+            <i class="fa fa-th-large"></i>
+          </button>
+          <button id="listViewBtn" class="px-4 py-2 rounded-full text-gray-600 hover:bg-white/50 transition-colors">
+            <i class="fa fa-list"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- 产品展示 -->
+      <div id="productsContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 联名沉浸式体验盒 -->
+        <div class="product-item group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
+          <div class="relative overflow-hidden">
+            <img src="./相关图片素材/商品1.jpg" alt="联名沉浸式体验盒" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute top-4 right-4 bg-opera-red text-white text-sm font-bold px-3 py-1 rounded-full">
+              新品
+            </div>
+          </div>
+          <div class="product-info p-6 flex-grow">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold text-opera-brown">豫剧文化联名体验盒</h3>
+              <div class="flex items-center">
+                <i class="fa fa-star text-opera-gold"></i>
+                <span class="ml-1 text-gray-600">4.9</span>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-4">融合黄河文化与豫剧元素，包含AR体验卡、传统脸谱DIY套装和经典唱段音频。</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">AR体验</span>
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">手工制作</span>
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">黄河文化</span>
+            </div>
+          </div>
+          <div class="p-6 pt-0 flex justify-between items-center">
+            <div>
+              <span class="text-2xl font-bold text-opera-red">¥59.9</span>
+              <span class="text-gray-400 line-through ml-2">¥99.9</span>
+            </div>
+            <button class="w-12 h-12 rounded-full bg-opera-red/10 text-opera-red flex items-center justify-center hover:bg-opera-red hover:text-white transition-colors">
+              <i class="fa fa-shopping-cart"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- 河大110周年校庆特别款 -->
+        <div class="product-item group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
+          <div class="relative overflow-hidden">
+            <img src="./相关图片素材/商品2.jpg" alt="河大110周年校庆特别款" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute top-4 right-4 bg-opera-gold text-opera-dark text-sm font-bold px-3 py-1 rounded-full">
+              限定款
+            </div>
+          </div>
+          <div class="product-info p-6 flex-grow">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold text-opera-brown">河大110周年×黄河非遗</h3>
+              <div class="flex items-center">
+                <i class="fa fa-star text-opera-gold"></i>
+                <span class="ml-1 text-gray-600">5.0</span>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-4">校史主题限定款，通过AR技术重现河大校史中的非遗故事，含限量版校徽与豫剧书签。</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">AR校史</span>
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">校庆限定</span>
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">收藏级</span>
+            </div>
+          </div>
+          <div class="p-6 pt-0 flex justify-between items-center">
+            <div>
+              <span class="text-2xl font-bold text-opera-red">¥39.9</span>
+              <span class="text-gray-400 line-through ml-2">¥59</span>
+            </div>
+            <button class="w-12 h-12 rounded-full bg-opera-red/10 text-opera-red flex items-center justify-center hover:bg-opera-red hover:text-white transition-colors">
+              <i class="fa fa-shopping-cart"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- 数字化非遗工坊套装 -->
+        <div class="product-item group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
+          <div class="relative overflow-hidden">
+            <img src="./相关图片素材/商品3.jpg" alt="数字化非遗工坊套装" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="product-info p-6 flex-grow">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold text-opera-brown">数字化非遗工坊套装</h3>
+              <div class="flex items-center">
+                <i class="fa fa-star text-opera-gold"></i>
+                <span class="ml-1 text-gray-600">4.7</span>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-4">包含3D打印脸谱模具、数字彩绘工具和元宇宙展厅入场券，打造线上线下融合体验。</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">3D打印</span>
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">数字工具</span>
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">工坊体验</span>
+            </div>
+          </div>
+          <div class="p-6 pt-0 flex justify-between items-center">
+            <div>
+              <span class="text-2xl font-bold text-opera-red">¥89</span>
+              <span class="text-gray-400 line-through ml-2">¥199</span>
+            </div>
+            <button class="w-12 h-12 rounded-full bg-opera-red/10 text-opera-red flex items-center justify-center hover:bg-opera-red hover:text-white transition-colors">
+              <i class="fa fa-shopping-cart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-12">
+        <a href="#" class="inline-block px-8 py-3 rounded-full border-2 border-opera-red text-opera-red font-medium hover:bg-opera-red hover:text-white transition-colors duration-300">
+          查看全部产品 <i class="fa fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 用户评价 -->
+  <section class="py-20 bg-opera-light">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-opera text-opera-red mb-4">用户体验反馈</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">来自元宇宙展厅和文创产品用户的真实评价</p>
+        <div class="w-24 h-1 bg-opera-gold mx-auto mt-6"></div>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+          <div class="flex items-center mb-6">
+            <img src="https://picsum.photos/id/64/100/100" alt="用户头像" class="w-14 h-14 rounded-full object-cover mr-4">
+            <div>
+              <h4 class="font-bold">李小明</h4>
+              <p class="text-gray-500 text-sm">豫剧爱好者</p>
+            </div>
+          </div>
+          <div class="text-yellow-400 mb-4">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+          </div>
+          <p class="text-gray-600">"元宇宙展厅的体验太神奇了！我创建了自己的数字分身，在虚拟戏台上演唱了《花木兰》选段，系统还给出了专业的唱腔指导，非常有收获。"</p>
+        </div>
+        
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+          <div class="flex items-center mb-6">
+            <img src="https://picsum.photos/id/65/100/100" alt="用户头像" class="w-14 h-14 rounded-full object-cover mr-4">
+            <div>
+              <h4 class="font-bold">张雨晴</h4>
+              <p class="text-gray-500 text-sm">河大学生</p>
+            </div>
+          </div>
+          <div class="text-yellow-400 mb-4">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-half-o"></i>
+          </div>
+          <p class="text-gray-600">"河大110周年特别款体验盒太棒了！通过AR技术看到了校史中的非遗故事，让我对母校和豫剧都有了更深的了解，很有收藏价值。"</p>
+        </div>
+        
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+          <div class="flex items-center mb-6">
+            <img src="https://picsum.photos/id/91/100/100" alt="用户头像" class="w-14 h-14 rounded-full object-cover mr-4">
+            <div>
+              <h4 class="font-bold">王建国</h4>
+              <p class="text-gray-500 text-sm">非遗传承人</p>
+            </div>
+          </div>
+          <div class="text-yellow-400 mb-4">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+          </div>
+          <p class="text-gray-600">"作为一名豫剧传承人，我认为这种数字化传承方式非常有前景。我在平台上创建了自己的3D展厅，展示了多年的收藏，收到了很多年轻人的关注。"</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 活动资讯 -->
+  <section id="events" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-opera text-opera-red mb-4">活动资讯</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">最新的豫剧非遗活动与元宇宙体验活动</p>
+        <div class="w-24 h-1 bg-opera-gold mx-auto mt-6"></div>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://picsum.photos/id/26/800/500" alt="元宇宙豫剧大赛" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <span class="inline-block px-3 py-1 bg-opera-red text-white text-sm rounded-full mb-2">线上活动</span>
+              <h3 class="text-xl font-bold">第一届元宇宙豫剧大赛</h3>
+              <p class="text-white/80 text-sm">2023年10月15日 - 11月30日</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-600 mb-4">面向全球豫剧爱好者的虚拟比赛，参赛者通过数字分身在元宇宙戏台表演，专业评委在线评分，优胜者将获得非遗传承人指导机会。</p>
+            <a href="#" class="inline-flex items-center text-opera-red font-medium hover:underline">
+              了解比赛详情 <i class="fa fa-long-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://picsum.photos/id/42/800/500" alt="河大110周年非遗展" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <span class="inline-block px-3 py-1 bg-opera-gold text-opera-dark text-sm rounded-full mb-2">线下活动</span>
+              <h3 class="text-xl font-bold">河大110周年非遗特展</h3>
+              <p class="text-white/80 text-sm">2023年11月1日 - 11月15日</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-600 mb-4">河南大学110周年校庆特别展览，展示校史中的非遗传承故事，同时提供AR导览和元宇宙展厅同步体验，线上线下联动。</p>
+            <a href="#" class="inline-flex items-center text-opera-red font-medium hover:underline">
+              预约参观 <i class="fa fa-long-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 订阅区域 -->
+  <section class="py-16 bg-opera-red text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-opera mb-4">订阅豫剧非遗资讯</h2>
+        <p class="mb-8 opacity-90">获取最新的元宇宙展厅活动、文创产品更新和豫剧传承资讯</p>
+        <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+          <input type="email" placeholder="请输入您的邮箱地址" class="flex-1 px-6 py-3 rounded-full text-opera-dark focus:outline-none focus:ring-2 focus:ring-opera-gold">
+          <button type="submit" class="px-6 py-3 rounded-full bg-opera-gold text-opera-dark font-medium hover:bg-white transition-colors duration-300">
+            立即订阅
+          </button>
+        </form>
+        <p class="mt-4 text-sm opacity-80">我们尊重您的隐私，不会向第三方分享您的信息</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer id="contact" class="bg-opera-dark text-white pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-6">
+            <i class="fa fa-music text-opera-gold text-2xl"></i>
+            <h3 class="text-xl font-opera text-white">河图元创 元宇宙豫剧展厅</h3>
+          </div>
+          <p class="text-gray-400 mb-6">通过数字技术传承和创新豫剧文化，让非遗艺术在元宇宙时代焕发新活力。</p>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-opera-red transition-colors">
+              <i class="fa fa-weixin"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-opera-red transition-colors">
+              <i class="fa fa-weibo"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-opera-red transition-colors">
+              <i class="fa fa-youtube-play"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-opera-red transition-colors">
+              <i class="fa fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold mb-6">快速链接</h4>
+          <ul class="space-y-3">
+            <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">首页</a></li>
+            <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">关于豫剧</a></li>
+            <li><a href="#metaverse" class="text-gray-400 hover:text-white transition-colors">元宇宙展厅</a></li>
+            <li><a href="#products" class="text-gray-400 hover:text-white transition-colors">文创产品</a></li>
+            <li><a href="#events" class="text-gray-400 hover:text-white transition-colors">活动资讯</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold mb-6">帮助中心</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">元宇宙使用指南</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">账号注册与登录</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">数字分身创建教程</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">购物指南</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold mb-6">联系我们</h4>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <i class="fa fa-map-marker text-opera-gold mt-1 mr-3"></i>
+              <span class="text-gray-400">河南省开封市河南大学金明校区</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-phone text-opera-gold mr-3"></i>
+              <span class="text-gray-400">010-12345678</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-envelope text-opera-gold mr-3"></i>
+              <span class="text-gray-400">henu@hetuyuancreative.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-white/10 pt-8 text-center text-gray-500 text-sm">
+        <p>© 2025 河图元创-2410250638杨嘉欣 版权所有 | 豫ICP备12345678号</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 返回顶部按钮 -->
+  <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-opera-red text-white flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-opera-red/90">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    const backToTop = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 100) {
+        navbar.classList.add('py-2', 'shadow-lg');
+        navbar.classList.remove('py-3', 'shadow-md');
+        backToTop.classList.remove('opacity-0', 'invisible');
+        backToTop.classList.add('opacity-100', 'visible');
+      } else {
+        navbar.classList.add('py-3', 'shadow-md');
+        navbar.classList.remove('py-2', 'shadow-lg');
+        backToTop.classList.add('opacity-0', 'invisible');
+        backToTop.classList.remove('opacity-100', 'visible');
+      }
+    });
+    
+    // 移动端菜单
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    menuBtn.addEventListener('click', function() {
+      mobileMenu.classList.toggle('hidden');
+      if (mobileMenu.classList.contains('hidden')) {
+        menuBtn.innerHTML = '<i class="fa fa-bars"></i>';
+      } else {
+        menuBtn.innerHTML = '<i class="fa fa-times"></i>';
+      }
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // 关闭移动菜单
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            menuBtn.innerHTML = '<i class="fa fa-bars"></i>';
+          }
+        }
+      });
+    });
+    
+    // 返回顶部
+    backToTop.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // 数字计数器动画
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200;
+    
+    const observerOptions = {
+      threshold: 0.5
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const counter = entry.target;
+          const target = +counter.getAttribute('data-target');
+          let count = 0;
+          
+          const updateCount = () => {
+            const increment = target / speed;
+            if (count < target) {
+              count += increment;
+              counter.innerText = Math.ceil(count).toLocaleString();
+              setTimeout(updateCount, 1);
+            } else {
+              counter.innerText = target.toLocaleString();
+            }
+          };
+          
+          updateCount();
+          observer.unobserve(counter);
+        }
+      });
+    }, observerOptions);
+    
+    counters.forEach(counter => {
+      observer.observe(counter);
+    });
+    
+    // 文创产品视图切换功能
+    const gridViewBtn = document.getElementById('gridViewBtn');
+    const listViewBtn = document.getElementById('listViewBtn');
+    const productsContainer = document.getElementById('productsContainer');
+    
+    gridViewBtn.addEventListener('click', function() {
+      // 切换到网格视图
+      productsContainer.classList.remove('product-list-view');
+      productsContainer.classList.add('grid', 'md:grid-cols-2', 'lg:grid-cols-3');
+      
+      // 更新按钮样式
+      gridViewBtn.classList.add('bg-white', 'shadow-sm', 'text-opera-dark');
+      gridViewBtn.classList.remove('text-gray-600');
+      listViewBtn.classList.remove('bg-white', 'shadow-sm', 'text-opera-dark');
+      listViewBtn.classList.add('text-gray-600');
+    });
+    
+    listViewBtn.addEventListener('click', function() {
+      // 切换到列表视图
+      productsContainer.classList.add('product-list-view');
+      productsContainer.classList.remove('grid', 'md:grid-cols-2', 'lg:grid-cols-3');
+      
+      // 更新按钮样式
+      listViewBtn.classList.add('bg-white', 'shadow-sm', 'text-opera-dark');
+      listViewBtn.classList.remove('text-gray-600');
+      gridViewBtn.classList.remove('bg-white', 'shadow-sm', 'text-opera-dark');
+      gridViewBtn.classList.add('text-gray-600');
+    });
+  </script>
+</body>
+</html>

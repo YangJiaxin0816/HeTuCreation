@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>非遗数字基因库 - 豫剧文化创新平台</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      /* 优化字体体系，增加衬线字体提升文化感 */
+      font-family: 'Noto Serif SC', 'Noto Sans SC', Georgia, serif;
+      background-color: #fff8f0;
+      background-image: url("./相关图片素材/豫剧背景.jpg");
+      background-repeat: no-repeat; 
+      background-size: cover;
+      background-attachment: fixed;
+      color: #333;
+      overflow-x: hidden;
+      line-height: 1.7; /* 增加行高提升可读性 */
+    }
+    
+    .navbar {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 15px 20px;
+      box-shadow: 0 2px 10px rgba(139, 28, 37, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .home-btn {
+      text-decoration: none;
+      color: #8b1c25;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      font-size: 1rem; /* 明确字体大小 */
+    }
+    
+    .home-btn:hover {
+      background-color: #fff0e6;
+      transform: translateY(-2px);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    
+    .logo img {
+      height: 40px;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+    
+    .logo:hover img {
+      transform: rotate(10deg);
+    }
+    
+    .logo-text {
+      font-size: 1.5rem; /* 增大logo文字 */
+      font-weight: bold;
+      color: #8b1c25;
+      font-family: 'Noto Serif SC', serif; /* 衬线字体增强文化感 */
+    }
+    
+    .user-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .energy-points {
+      background-color: #fff0e6;
+      padding: 6px 12px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      color: #8b1c25;
+      box-shadow: 0 2px 5px rgba(139, 28, 37, 0.1);
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+    
+    .energy-points:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(139, 28, 37, 0.2);
+    }
+    
+    .energy-icon {
+      color: #d4af37;
+      font-size: 1.2rem;
+    }
+    
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #fff0e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #8b1c25;
+      border: 2px solid #d4af37;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .user-avatar:hover {
+      transform: scale(1.1);
+    }
+    
+    h1 {
+      text-align: center;
+      color: #8b1c25; 
+      margin: 40px 0 20px;
+      font-size: 2.8rem; /* 增大主标题 */
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      animation: slideDown 0.6s ease-out;
+      font-family: 'Noto Serif SC', serif;
+      line-height: 1.3;
+    }
+    
+    .section-title {
+      text-align: center;
+      color: #333;
+      margin: 60px 0 35px;
+      font-size: 2.1rem; /* 增大区块标题 */
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Noto Serif SC', serif;
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background-color: #d4af37;
+      margin: 12px auto;
+      border-radius: 3px;
+    }
+    
+    .project-banner {
+      background: linear-gradient(135deg, #fff5f0, #fff0e6);
+      border-radius: 15px;
+      padding: 40px; /* 增加内边距 */
+      max-width: 1200px;
+      margin: 0 auto 50px;
+      box-shadow: 0 5px 15px rgba(139, 28, 37, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    .banner-text {
+      flex: 1;
+    }
+    
+    .banner-title {
+      font-size: 1.8rem; /* 增大banner标题 */
+      color: #8b1c25;
+      margin-bottom: 20px;
+      font-family: 'Noto Serif SC', serif;
+    }
+    
+    .banner-desc {
+      line-height: 1.8;
+      margin-bottom: 25px;
+      font-size: 1.05rem; /* 增大描述文本 */
+      color: #555;
+    }
+    
+    .banner-highlight {
+      color: #8b1c25;
+      font-weight: bold;
+    }
+    
+    .banner-actions {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .banner-btn {
+      background-color: #8b1c25;
+      color: white;
+      border: none;
+      padding: 12px 24px; /* 增大按钮 */
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.05rem;
+    }
+    
+    .banner-btn:hover {
+      background-color: #6d141c;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(139, 28, 37, 0.2);
+    }
+    
+    .banner-image {
+      flex: 0 0 320px; /* 增大图片区域 */
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+    
+    .banner-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .feature-container {
+      max-width: 1200px;
+      margin: 0 auto 50px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    .feature-card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 35px; /* 增加内边距 */
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+    }
+    
+    .feature-icon {
+      font-size: 3rem; /* 增大图标 */
+      color: #d4af37;
+      margin-bottom: 25px;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff0e6;
+      border-radius: 50%;
+    }
+    
+    .feature-title {
+      font-size: 1.5rem; /* 增大功能标题 */
+      font-weight: bold;
+      margin-bottom: 18px;
+      color: #8b1c25;
+      font-family: 'Noto Serif SC', serif;
+    }
+    
+    .feature-desc {
+      line-height: 1.7;
+      color: #666;
+      font-size: 1.02rem; /* 增大描述文本 */
+      max-width: 90%;
+    }
+    
+    .process-container {
+      max-width: 1200px;
+      margin: 0 auto 50px;
+      background-color: white;
+      border-radius: 15px;
+      padding: 40px; /* 增加内边距 */
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    .process-title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 1.4rem; /* 增大流程标题 */
+      color: #555;
+      font-weight: 500;
+    }
+    
+    .process-steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+    
+    .process-step {
+      flex: 0 0 300px;
+      text-align: center;
+    }
+    
+    .step-number {
+      width: 70px; /* 增大步骤数字 */
+      height: 70px;
+      border-radius: 50%;
+      background-color: #8b1c25;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem; /* 增大数字 */
+      font-weight: bold;
+      margin: 0 auto 20px;
+      border: 3px solid #fff0e6;
+      box-shadow: 0 0 0 3px #8b1c25;
+    }
+    
+    .step-title {
+      font-size: 1.3rem; /* 增大步骤标题 */
+      font-weight: bold;
+      margin-bottom: 12px;
+      color: #333;
+      font-family: 'Noto Serif SC', serif;
+    }
+    
+    .step-desc {
+      line-height: 1.7;
+      color: #666;
+      font-size: 1.02rem; /* 增大描述文本 */
+    }
+    
+    .nft-section {
+      max-width: 1200px;
+      margin: 0 auto 50px;
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    .nft-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px; /* 增加间距 */
+    }
+    
+    .nft-card {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+    
+    .nft-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+    
+    .nft-image {
+      width: 100%;
+      height: 220px; /* 增大图片高度 */
+      object-fit: cover;
+    }
+    
+    .nft-info {
+      padding: 20px; /* 增加内边距 */
+    }
+    
+    .nft-title {
+      font-size: 1.3rem; /* 增大标题 */
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #8b1c25;
+      font-family: 'Noto Serif SC', serif;
+    }
+    
+    .nft-desc {
+      font-size: 0.95rem; /* 增大描述 */
+      color: #666;
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    
+    .nft-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .nft-btn {
+      flex: 1;
+      padding: 10px 12px; /* 增大按钮 */
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.95rem; /* 增大按钮文字 */
+    }
+    
+    .mint-btn {
+      background-color: #8b1c25;
+      color: white;
+      border: none;
+    }
+    
+    .view-btn {
+      background-color: transparent;
+      color: #8b1c25;
+      border: 1px solid #8b1c25;
+    }
+    
+    .nft-btn:hover {
+      transform: scale(1.05);
+    }
+    
+    .mint-btn:hover {
+      background-color: #6d141c;
+    }
+    
+    .view-btn:hover {
+      background-color: #fff0e6;
+    }
+    
+    .certificate-section {
+      max-width: 1200px;
+      margin: 0 auto 50px;
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    
+    .cert-card {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+    
+    .cert-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+    
+    .cert-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    
+    .cert-info {
+      padding: 20px;
+    }
+    
+    .cert-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #8b1c25;
+      font-family: 'Noto Serif SC', serif;
+    }
+    
+    .cert-desc {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    
+    .cert-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .cert-btn {
+      flex: 1;
+      padding: 10px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+    
+    .apply-btn {
+      background-color: #8b1c25;
+      color: white;
+      border: none;
+    }
+    
+    .download-btn {
+      background-color: transparent;
+      color: #8b1c25;
+      border: 1px solid #8b1c25;
+    }
+    
+    .cert-btn:hover {
+      transform: scale(1.05);
+    }
+    
+    .apply-btn:hover {
+      background-color: #6d141c;
+    }
+    
+    .download-btn:hover {
+      background-color: #fff0e6;
+    }
+    
+    .resource-library {
+      max-width: 1200px;
+      margin: 0 auto 50px;
+      background-color: white;
+      border-radius: 15px;
+      padding: 35px; /* 增加内边距 */
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    .library-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+    
+    .filter-btn {
+      padding: 10px 18px; /* 增大按钮 */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: #fff0e6;
+      color: #8b1c25;
+      font-size: 0.95rem;
+    }
+    
+    .filter-btn.active {
+      background-color: #8b1c25;
+      color: white;
+    }
+    
+    .filter-btn:hover {
+      background-color: #ffe4d1;
+    }
+    
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px; /* 增加间距 */
+    }
+    
+    .library-item {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .library-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+    
+    .library-item img {
+      width: 100%;
+      height: 160px; /* 增大图片高度 */
+      object-fit: cover;
+    }
+    
+    .library-item p {
+      text-align: center;
+      padding: 10px; /* 增加内边距 */
+      background-color: #fff0e6;
+      color: #333;
+      font-size: 0.95rem; /* 增大文字 */
+    }
+    
+    .call-to-action {
+      text-align: center;
+      max-width: 800px;
+      margin: 70px auto;
+      background: linear-gradient(135deg, #fff5f0, #fff0e6);
+      border-radius: 15px;
+      padding: 50px; /* 增加内边距 */
+      box-shadow: 0 5px 15px rgba(139, 28, 37, 0.1);
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    .cta-title {
+      font-size: 2rem; /* 增大标题 */
+      color: #8b1c25;
+      margin-bottom: 25px;
+      font-family: 'Noto Serif SC', serif;
+    }
+    
+    .cta-desc {
+      line-height: 1.8;
+      margin-bottom: 35px;
+      font-size: 1.05rem; /* 增大描述 */
+      color: #555;
+    }
+    
+    .cta-btn {
+      background-color: #8b1c25;
+      color: white;
+      border: none;
+      padding: 14px 35px; /* 增大按钮 */
+      border-radius: 30px;
+      font-size: 1.15rem; /* 增大按钮文字 */
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 2px solid transparent;
+    }
+    
+    .cta-btn:hover {
+      background-color: #6d141c;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(139, 28, 37, 0.3);
+      border-color: #d4af37;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 40px 20px; /* 增加内边距 */
+      color: #666;
+      font-size: 1rem; /* 增大文字 */
+      background-color: rgba(255,255,255,0.8);
+      margin-top: 80px;
+      line-height: 1.8;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideDown {
+      from { 
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .project-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+      }
+      
+      .banner-actions {
+        flex-direction: column;
+      }
+      
+      .banner-image {
+        flex: 0 0 250px;
+        margin-top: 20px;
+        width: 100%;
+      }
+      
+      h1 {
+        font-size: 2.2rem;
+        padding: 0 15px;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+        padding: 0 15px;
+      }
+      
+      .navbar {
+        padding: 10px 15px;
+      }
+      
+      .logo-text {
+        font-size: 1.2rem;
+      }
+      
+      .feature-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .nft-grid, .cert-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .library-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .process-steps {
+        gap: 20px;
+      }
+      
+      .process-step {
+        flex: 0 0 100%;
+        padding: 0 15px;
+      }
+    }
+  </style>
+  <!-- 引入衬线字体增强文化感 -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- 页面内容保持不变 -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="home-btn">
+        <i class="fas fa-home"></i> 首页
+      </a>
+      <a href="#" class="logo">
+        <img src="./相关图片素材/豫剧logo.png" alt="Logo">
+        <span class="logo-text">豫剧数字基因库</span>
+      </a>
+    </div>
+    <div class="user-section">
+      <div class="energy-points">
+        <i class="fas fa-star energy-icon"></i>
+        <span>文化能量值: <span id="energy-count">1500</span></span>
+      </div>
+      <div class="user-avatar">U</div>
+    </div>
+  </nav>
+  
+  <h1>毫米级豫剧非遗资源数字化沉淀与开放平台</h1>
+  
+  <div class="project-banner">
+    <div class="banner-text">
+      <h2 class="banner-title">豫剧数字基因库 - 让传统戏曲在数字时代重生</h2>
+      <p class="banner-desc">通过AI/AR创作、3D扫描+数字孪生技术，复刻豫剧戏服、脸谱、唱腔等100+非遗资源，构建毫米级数字化沉淀库。支持纹样、音效、剧本等素材分类检索与调用，结合区块链存证保障版权，打造豫剧文化创新生态。</p>
+      <div class="banner-actions">
+        <button class="banner-btn">
+          <i class="fas fa-database"></i> 进入资源库
+        </button>
+        <button class="banner-btn">
+          <i class="fas fa-paint-brush"></i> 开始AI创作
+        </button>
+      </div>
+    </div>
+    <div class="banner-image">
+      <img src="./相关图片素材/数字基因库.jpg" alt="豫剧数字基因库">
+    </div>
+  </div>
+  
+  <h2 class="section-title">核心功能</h2>
+  <div class="feature-container">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-search-plus"></i>
+      </div>
+      <h3 class="feature-title">毫米级数字化沉淀</h3>
+      <p class="feature-desc">对豫剧服饰、脸谱等非遗资源进行高精度扫描与数字化处理，保留每一处细节，实现文化遗产的永久数字存档。采用3D激光扫描技术，精度可达0.1毫米，完整呈现传统工艺的精妙之处。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-robot"></i>
+      </div>
+      <h3 class="feature-title">AI/AR创作工具</h3>
+      <p class="feature-desc">提供AI辅助设计、AR虚拟展示等创作工具，降低豫剧创新门槛，激发创作者灵感。内置智能配色系统和纹样生成算法，可快速生成符合豫剧美学的设计方案，支持实时AR预览效果。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-hashtag"></i>
+      </div>
+      <h3 class="feature-title">区块链版权存证</h3>
+      <p class="feature-desc">每一次素材调用与创作都上链存证，确保版权可追溯。采用联盟链技术，为每一份数字资产生成唯一哈希值，记录创作过程与授权信息，有效保护创作者与豫剧传承人的合法权益。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-trophy"></i>
+      </div>
+      <h3 class="feature-title">原创奖赏制度</h3>
+      <p class="feature-desc">通过文化能量值兑换、NFC数字证书/徽章颁发、虚拟展厅通行证等方式激励原创。优质作品可获得额外能量值奖励，累积能量可兑换线下非遗工坊体验资格或限量版豫剧周边。</p>
+    </div>
+  </div>
+  
+  <h2 class="section-title">创作流程</h2>
+  <div class="process-container">
+    <h3 class="process-title">从素材调用到作品上链的完整路径</h3>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-number">1</div>
+        <h4 class="step-title">素材检索与调用</h4>
+        <p class="step-desc">在资源库中通过关键词、分类标签或图像识别检索所需豫剧素材，查看详细参数后申请调用权限，系统自动记录素材使用授权。</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">2</div>
+        <h4 class="step-title">AI工具辅助创作</h4>
+        <p class="step-desc">使用"豫剧脸谱AI工具"生成基础设计，结合平台素材库进行个性化调整，支持图层管理、参数化编辑和实时渲染预览。</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">3</div>
+        <h4 class="step-title">自动上链存证</h4>
+        <p class="step-desc">作品完成后自动触发区块链存证流程，生成包含创作时间、素材来源、作者信息的数字证书，确保版权归属可追溯。</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">4</div>
+        <h4 class="step-title">电商模块挂载销售</h4>
+        <p class="step-desc">一键将创作作品转换为数字商品，设置定价与销售模式，挂载至电商模块，支持数字下载、实体定制等多种变现方式。</p>
+      </div>
+    </div>
+  </div>
+  
+  <h2 class="section-title">NFT豫剧守护者徽章</h2>
+  <div class="nft-section">
+    <div class="nft-grid">
+      <div class="nft-card">
+        <img src="./相关图片素材/nft1.jpg" alt="豫剧守护者徽章1" class="nft-image">
+        <div class="nft-info">
+          <h3 class="nft-title">豫剧传承先锋</h3>
+          <p class="nft-desc">表彰在豫剧数字化传承中做出突出贡献的创作者，限量发行100枚，持有者可优先参与线下非遗保护项目。</p>
+          <div class="nft-actions">
+            <button class="nft-btn mint-btn">申请铸造</button>
+            <button class="nft-btn view-btn">查看详情</button>
+          </div>
+        </div>
+      </div>
+      <div class="nft-card">
+        <img src="./相关图片素材/nft2.jpg" alt="豫剧守护者徽章2" class="nft-image">
+        <div class="nft-info">
+          <h3 class="nft-title">戏曲创新使者</h3>
+          <p class="nft-desc">奖励在豫剧与现代科技融合创新方面的优秀作品创作者，具备数字藏品交易资格，可参与平台创新项目评审。</p>
+          <div class="nft-actions">
+            <button class="nft-btn mint-btn">申请铸造</button>
+            <button class="nft-btn view-btn">查看详情</button>
+          </div>
+        </div>
+      </div>
+      <div class="nft-card">
+        <img src="./相关图片素材/nft3.jpg" alt="豫剧守护者徽章3" class="nft-image">
+        <div class="nft-info">
+          <h3 class="nft-title">社区贡献达人</h3>
+          <p class="nft-desc">授予为豫剧创作社区提供优质素材与知识分享的成员，享有平台高级功能使用权和专属客服支持。</p>
+          <div class="nft-actions">
+            <button class="nft-btn mint-btn">申请铸造</button>
+            <button class="nft-btn view-btn">查看详情</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <h2 class="section-title">数字证书体系</h2>
+  <div class="certificate-section">
+    <div class="cert-grid">
+      <div class="cert-card">
+        <img src="./相关图片素材/cert1.jpg" alt="豫剧数字证书1" class="cert-image">
+        <div class="cert-info">
+          <h3 class="cert-title">豫剧数字化工程师</h3>
+          <p class="cert-desc">证明持有者具备豫剧资源数字化处理的专业能力，通过考核可获得平台认证的数字化扫描设备操作资格。</p>
+          <div class="cert-actions">
+            <button class="cert-btn apply-btn">申请证书</button>
+            <button class="cert-btn download-btn">下载样本</button>
+          </div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <img src="./相关图片素材/cert2.jpg" alt="豫剧数字证书2" class="cert-image">
+        <div class="cert-info">
+          <h3 class="cert-title">AI豫剧创作师</h3>
+          <p class="cert-desc">表彰在AI辅助豫剧创作领域有优秀作品的创作者，证书等级分为初级、中级和高级，对应不同创作权限。</p>
+          <div class="cert-actions">
+            <button class="cert-btn apply-btn">申请证书</button>
+            <button class="cert-btn download-btn">下载样本</button>
+          </div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <img src="./相关图片素材/cert3.jpg" alt="豫剧数字证书3" class="cert-image">
+        <div class="cert-info">
+          <h3 class="cert-title">豫剧版权管理师</h3>
+          <p class="cert-desc">认证持有者在豫剧版权存证与管理方面的专业素养，可协助平台处理版权纠纷与授权管理事务。</p>
+          <div class="cert-actions">
+            <button class="cert-btn apply-btn">申请证书</button>
+            <button class="cert-btn download-btn">下载样本</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <h2 class="section-title">豫剧资源素材库</h2>
+  <div class="resource-library">
+    <div class="library-filter">
+      <button class="filter-btn active">全部素材</button>
+      <button class="filter-btn">豫剧脸谱</button>
+      <button class="filter-btn">传统纹样</button>
+      <button class="filter-btn">戏曲服饰</button>
+      <button class="filter-btn">唱腔音效</button>
+      <button class="filter-btn">剧本唱段</button>
+    </div>
+    <div class="library-grid">
+      <div class="library-item" onclick="viewResource('传统纹样')">
+        <img src="./相关图片素材/素材1.jpg" alt="豫剧脸谱1">
+        <p>祥云纹样 - 金边素材</p>
+      </div>
+      <div class="library-item" onclick="viewResource('传统纹样')">
+        <img src="./相关图片素材/素材2.jpg" alt="传统纹样1">
+        <p>传统纹样 - 戏曲云纹</p>
+      </div>
+      <div class="library-item" onclick="viewResource('传统纹样')">
+        <img src="./相关图片素材/素材3.jpg" alt="戏曲服饰1">
+        <p>敦煌元素 - 扣图素材</p>
+      </div>
+      <div class="library-item" onclick="viewResource('唱腔音效')">
+        <img src="./相关图片素材/素材4.jpg" alt="唱腔音效1">
+        <p>手账素材 - 扣图贴纸</p>
+      </div>
+      <div class="library-item" onclick="viewResource('豫剧脸谱')">
+        <img src="./相关图片素材/素材5.jpg" alt="豫剧脸谱2">
+        <p>豫剧脸谱 - 黑脸包公</p>
+      </div>
+      <div class="library-item" onclick="viewResource('传统纹样')">
+        <img src="./相关图片素材/素材6.jpg" alt="传统纹样2">
+        <p>传统纹样 - 刺绣图案</p>
+      </div>
+      <div class="library-item" onclick="viewResource('戏曲服饰')">
+        <img src="./相关图片素材/素材7.jpg" alt="戏曲服饰2">
+        <p>戏曲服饰 - 旦角帔衫</p>
+      </div>
+      <div class="library-item" onclick="viewResource('唱腔音效')">
+        <img src="./相关图片素材/素材8.jpg" alt="唱腔音效2">
+        <p>唱腔音效 - 伴奏选段</p>
+      </div>
+      <div class="library-item" onclick="viewResource('剧本唱段')">
+        <img src="./相关图片素材/素材9.jpg" alt="剧本唱段1">
+        <p>剧本唱段 - 经典选段</p>
+      </div>
+      <div class="library-item" onclick="viewResource('传统道具')">
+        <img src="./相关图片素材/素材10.jpg" alt="传统道具1">
+        <p>传统道具 - 马鞭</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="call-to-action">
+    <h2 class="cta-title">加入豫剧数字创新生态</h2>
+    <p class="cta-desc">成为豫剧守护者，用技术赋能传统戏曲，让千年艺术在数字时代焕发新生。平台提供从素材获取、创作辅助到版权保护的全流程支持，无论您是专业创作者还是传统文化爱好者，都能在这里找到属于自己的创作空间。立即注册，开启你的豫剧数字化创作之旅！</p>
+    <button class="cta-btn">
+      <i class="fas fa-user-plus"></i> 立即进入
+    </button>
+  </div>
+  
+  <footer>
+    <p>© 2025 河图元创版权所有 豫剧数字基因库 | 毫米级豫剧非遗资源数字化平台 </p>
+    <p>本平台致力于豫剧文化的数字化保护与创新发展，通过技术手段实现文化遗产的永久传承</p>
+    <p>联系我们：henu@hetuyuancreative.com | 豫ICP备12345678号</p>
+  </footer>
+
+  <script>
+    let energyPoints = 1500;
+    
+    function updateEnergyDisplay() {
+      document.getElementById('energy-count').textContent = energyPoints;
+    }
+    
+    function viewResource(resourceName) {
+      alert(`正在查看资源：${resourceName}，即将进入资源详情页`);
+    }
+    
+    function mintNFT(nftName) {
+      if (energyPoints >= 500) {
+        energyPoints -= 500;
+        updateEnergyDisplay();
+        alert(`已成功铸造${nftName} NFT，消耗500文化能量值`);
+      } else {
+        alert(`文化能量值不足，无法铸造${nftName} NFT`);
+      }
+    }
+    
+    function applyCertificate(certName) {
+      if (energyPoints >= 300) {
+        energyPoints -= 300;
+        updateEnergyDisplay();
+        alert(`已成功申请${certName}，证书将在3个工作日内发放，消耗300文化能量值`);
+      } else {
+        alert(`文化能量值不足，无法申请${certName}`);
+      }
+    }
+  </script>
+</body>
+</html>

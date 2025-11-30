@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>客服</title>
+  <style>
+    /* 全局样式 */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #FEFAE0, #FAEDCD);
+      color: #606C38;
+      line-height: 1.6;
+    }
+    
+    /* 导航栏 */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 12px 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background-color: rgba(212, 163, 115, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 8px;
+    }
+    
+    .logo-icon::before {
+      content: "❤";
+      color: #D4A373;
+      font-size: 18px;
+    }
+    
+    .logo-text {
+      font-weight: bold;
+      font-size: 20px;
+    }
+    
+    .nav-links {
+      display: none;
+    }
+    
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+        gap: 32px;
+      }
+      
+      .nav-link {
+        color: #606C38;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      
+      .nav-link:hover {
+        color: #D4A373;
+      }
+      
+      .nav-link.active {
+        color: #D4A373;
+        font-weight: 600;
+        border-bottom: 2px solid #D4A373;
+        padding-bottom: 4px;
+      }
+    }
+    
+    .menu-toggle {
+      display: block;
+      font-size: 24px;
+      color: #606C38;
+    }
+    
+    @media (min-width: 768px) {
+      .menu-toggle {
+        display: none;
+      }
+    }
+    
+    /* 主要内容 */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 20px;
+    }
+    
+    /* 页面标题 */
+    .page-title {
+      text-align: center;
+      margin-bottom: 64px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    
+    .page-title.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .page-title h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: bold;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .page-title p {
+      font-size: 18px;
+      color: #777;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* 联系卡片 */
+    .contact-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-bottom: 64px;
+    }
+    
+    @media (min-width: 768px) {
+    .contact-cards {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+     }
+    }
+    
+    .contact-card {
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 32px;
+      text-align: center;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    .contact-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-icon {
+      width: 64px;
+      height: 64px;
+      background-color: rgba(212, 163, 115, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+    
+    .card-icon.phone::before {
+      content: "📞";
+      font-size: 24px;
+    }
+    
+    .card-icon.email::before {
+      content: "✉️";
+      font-size: 24px;
+    }
+    
+    .card-icon.chat::before {
+      content: "💬";
+      font-size: 24px;
+    }
+    .card-icon.social::before {
+        content: "📱"; 
+        font-size: 24px;
+    }
+    
+    .contact-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    
+    .contact-card p {
+      color: #777;
+      margin-bottom: 24px;
+    }
+    
+    .contact-button {
+      display: block;
+      background-color: #D4A373;
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.2s ease;
+    }
+    
+    .contact-button:hover {
+      background-color: #C58B56;
+    }
+    
+    /* 常见问题 */
+    .faq-section {
+      margin-bottom: 64px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    
+    .faq-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .faq-section h2 {
+      font-size: 28px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    
+    .faq-items {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .faq-item {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    
+    .faq-question::after {
+      content: "▼";
+      color: #D4A373;
+      transition: transform 0.3s ease;
+    }
+    
+    .faq-question.active::after {
+      transform: rotate(180deg);
+    }
+    
+    .faq-answer {
+      padding: 0 20px 20px;
+      color: #777;
+      display: none;
+    }
+    
+    .faq-answer.active {
+      display: block;
+    }
+    
+    /* AI客服 */
+    .ai-chatbot {
+      max-width: 900px;
+      margin: 0 auto 64px;
+      background-color: white;
+      border-radius: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    
+    .ai-chatbot.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .chat-header {
+      background-color: rgba(212, 163, 115, 0.1);
+      padding: 24px;
+    }
+    
+    .chat-header h2 {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    
+    .chat-header p {
+      color: #777;
+    }
+    
+    .chat-messages {
+      padding: 24px;
+      height: 400px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .message {
+      display: flex;
+      max-width: 80%;
+    }
+    
+    .message-bot {
+      align-self: flex-start;
+    }
+    
+    .message-user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+    
+    .message-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(212, 163, 115, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+    }
+    
+    .message-user .message-avatar {
+      margin-left: 12px;
+      margin-right: 0;
+    }
+    
+    .message-avatar::before {
+      content: "🤖";
+      font-size: 18px;
+    }
+    
+    .message-user .message-avatar::before {
+      content: "👤";
+    }
+    
+    .message-content {
+      padding: 12px;
+      border-radius: 12px;
+    }
+    
+    .message-bot .message-content {
+      background-color: #f5f5f5;
+      border-top-left-radius: 0;
+    }
+    
+    .message-user .message-content {
+      background-color: #D4A373;
+      color: white;
+      border-top-right-radius: 0;
+    }
+    
+    .chat-input {
+      padding: 24px;
+      display: flex;
+      gap: 12px;
+    }
+    
+    .chat-input input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      outline: none;
+    }
+    
+    .chat-input button {
+      background-color: #D4A373;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    
+    .chat-input button:hover {
+      background-color: #C58B56;
+    }
+    
+    /* 悬浮客服按钮 */
+    .floating-chat {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 64px;
+      height: 64px;
+      background-color: #D4A373;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 40;
+    }
+    
+    .floating-chat::before {
+      content: "💬";
+      font-size: 24px;
+    }
+    
+    .floating-chat:hover {
+      background-color: #C58B56;
+    }
+    
+    .floating-chat:active {
+      transform: scale(0.9);
+    }
+    
+    /* 页脚 */
+    footer {
+      background-color: #606C38;
+      color: white;
+      padding: 64px 20px 32px;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-columns {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    
+    @media (min-width: 768px) {
+      .footer-columns {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    
+    .footer-column h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    
+    .footer-about p {
+      color: #ddd;
+      margin-bottom: 24px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+    }
+    
+    .social-link:hover {
+      background-color: #D4A373;
+    }
+    
+    .social-link.wechat::before {
+      content: "✉️";
+    }
+    
+    .social-link.weibo::before {
+      content: "📣";
+    }
+    
+    .social-link.youtube::before {
+      content: "📺";
+    }
+    
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: #ddd;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .footer-contact ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .footer-contact li {
+      display: flex;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+    
+    .footer-contact li::before {
+      margin-right: 12px;
+      margin-top: 2px;
+    }
+    
+    .footer-contact li:nth-child(1)::before {
+      content: "📍";
+    }
+    
+    .footer-contact li:nth-child(2)::before {
+      content: "📞";
+    }
+    
+    .footer-contact li:nth-child(3)::before {
+      content: "✉️";
+    }
+    
+    .footer-contact span {
+      color: #ddd;
+    }
+    
+    .footer-qrcode {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 16px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .footer-qrcode p {
+      margin-bottom: 16px;
+    }
+    
+   .qrcode-image {
+        width: 128px;
+        height: 128px;
+        background-color: white;
+        margin: 0 auto 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+    
+    .qrcode-image:hover {
+        transform: scale(1.05);
+    }
+    
+    .qrcode-img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+  
+  
+    .qrcode-image::before {
+        content: none;
+    }
+    
+    .footer-qrcode small {
+      color: #dbdbdb;
+      font-size: 16px;
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 32px;
+      text-align: center;
+      color: #bbb;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 导航栏 -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-icon"></div>
+        <span class="logo-text">非遗文化</span>
+      </div>
+      
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">首页</a>
+        <a href="客服页面.html" class="nav-link active">客服中心</a>
+      </nav>
+      
+      <button class="menu-toggle">
+        
+      </button>
+    </div>
+  </header>
+
+  <!-- 主要内容 -->
+  <main>
+    <!-- 页面标题 -->
+    <section class="page-title">
+      <h1>客服中心</h1>
+      <p>我们致力于为您提供最优质的服务，解答您关于非遗戏剧艺术等优秀传统文化及该多功能非遗文化原创网站的任何疑问噢~</p>
+    </section>
+
+    <!-- 联系卡片 -->
+    <section class="contact-cards">
+        <!-- 电话联系 -->
+        <div class="contact-card">
+            <div class="card-icon phone"></div>
+            <h3>电话咨询</h3>
+            <p>工作日 9:00-18:00<br>周末 10:00-16:00</p>
+            <a href="tel:1234567890" class="contact-button">
+            立即拨打
+            </a>
+        </div>
+        
+        <!-- 邮件联系 -->
+        <div class="contact-card">
+            <div class="card-icon email"></div>
+            <h3>邮件咨询</h3>
+            <p>我们会在24小时内回复您的邮件</p>
+            <a href="mailto:service@feiyi.com" class="contact-button">
+            发送邮件
+            </a>
+        </div>
+        
+        <!-- 在线客服 -->
+        <div class="contact-card">
+            <div class="card-icon chat"></div>
+            <h3>在线客服</h3>
+            <p>全天候AI助手<br>工作日人工客服 9:00-22:00</p>
+            <button id="open-chat" class="contact-button">
+            开始聊天
+            </button>
+        </div>
+        <!-- 新增：社交媒体咨询 -->
+        <div class="contact-card">
+            <div class="card-icon social"></div> <!-- 新增图标类，后续在CSS定义 -->
+            <h3>社交媒体咨询</h3>
+            <p>通过微信、微博等平台联系我们</p>
+            <a href="#" class="contact-button">
+            前往咨询
+            </a>
+        </div>
+    </section>
+
+    <!-- 常见问题 -->
+    <section class="faq-section">
+      <h2>常见问题</h2>
+      
+      <div class="faq-items">
+        <!-- FAQ 项目 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>有什么途径可以知道该网站更新或者开发的最新消息吗？</span>
+          </div>
+          <div class="faq-answer">
+            您可以通过我们的官方网站或微信公众号-河谐号了解，若有疑问也可以拨打我们的客服电话进行具体咨询。河谐号会定期推送各种有意思的文章噢！
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>投送简历后大概多久会收到回信呢？</span>
+          </div>
+          <div class="faq-answer">
+            您在首页招聘界面填写个人信息并投送简历后，我们将在三个工作日之内回信，注意邮件查收。若简历通过后，我们会安排面试和培训环节。
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>购买的课程是否可以退款？</span>
+          </div>
+          <div class="faq-answer">
+            课程购买后7天内未开始学习的，可以申请全额退款。已开始学习的课程，将根据已学习的进度按比例退款。特殊情况请联系客服协商处理。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI客服 -->
+    <section class="ai-chatbot">
+      <div class="chat-header">
+        <h2>AI智能客服</h2>
+        <p>24小时在线，随时为您解答疑问</p>
+      </div>
+      
+      <div class="chat-messages" id="chat-messages">
+        <!-- 欢迎消息 -->
+        <div class="message message-bot">
+          <div class="message-avatar"></div>
+          <div class="message-content">
+            <p>您好！我是非遗文化智能助手，有什么可以帮助您的吗？</p>
+          </div>
+        </div>
+        
+        <!-- 示例用户消息 -->
+        <div class="message message-user">
+          <div class="message-avatar"></div>
+          <div class="message-content">
+            <p>如何了解更多关于京剧的历史？</p>
+          </div>
+        </div>
+        
+        <!-- 示例AI回复 -->
+        <div class="message message-bot">
+            <div class="message-avatar"></div>
+            <div class="message-content">
+                <p>您可以在我们的网站"戏剧文化"板块查看京剧专题，或者参加我们每周三举办的线上讲座。</p>
+            </div>
+            </div>
+        </div>
+      
+      <div class="chat-input">
+        <input type="text" placeholder="输入您的问题...">
+        <button>发送</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- 悬浮客服按钮 -->
+  <button class="floating-chat" id="floating-chat"></button>
+
+  <!-- 页脚 -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-columns">
+        <div class="footer-column footer-about">
+          <h3>非遗文化</h3>
+          <p>以创造性转化、创新性发展中华优秀传统文化为目的，以河南豫剧文化为出发点，弘扬各种非遗艺术精髓!</p>
+          <div class="social-links">
+            <a href="#" class="social-link wechat"></a>
+            <a href="#" class="social-link weibo"></a>
+            <a href="#" class="social-link youtube"></a>
+          </div>
+        </div>
+        
+        <div class="footer-column footer-links">
+          <h3>快速链接</h3>
+          <ul>
+            <li><a href="首页.html">首页</a></li>
+            <li><a href="#">关于我们</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column footer-contact">
+          <h3>联系方式</h3>
+          <ul>
+            <li><span>河南省开封市河南大学金明校区</span></li>
+            <li><span>010-12345678</span></li>
+            <li><span>henu@hetuyuancreative.com</span></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column footer-qrcode">
+            <h3>关注我们</h3>
+            <p>扫描二维码关注公众号</p>
+            <div class="qrcode-image">
+                <img src="./相关图片素材/二维码.jpg" alt="公众号二维码" class="qrcode-img">
+            </div>
+            <small>大展河图</small>
+        </div>
+      </div>
+        <div class="footer-bottom">
+            <p>© 2025 河图元创-2410250638杨嘉欣 版权所有 | 豫ICP备12345678号</p>    
+        </div>
+    </div>
+</footer>
+
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 10) {
+        header.style.padding = '8px 20px';
+        header.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
+      } else {
+        header.style.padding = '12px 20px';
+        header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+      }
+    });
+    
+    // FAQ 折叠功能
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        const isActive = question.classList.contains('active');
+        
+        // 关闭所有其他FAQ
+        document.querySelectorAll('.faq-question').forEach(q => {
+          q.classList.remove('active');
+        });
+        document.querySelectorAll('.faq-answer').forEach(a => {
+          a.classList.remove('active');
+        });
+        
+        // 切换当前FAQ状态
+        if (!isActive) {
+          question.classList.add('active');
+          answer.classList.add('active');
+        }
+      });
+    });
+    
+    // 悬浮客服按钮交互
+    const floatingChat = document.getElementById('floating-chat');
+    const chatContainer = document.querySelector('.ai-chatbot');
+    
+    floatingChat.addEventListener('click', () => {
+      chatContainer.scrollIntoView({ behavior: 'smooth' });
+      
+      // 添加点击动画效果
+      floatingChat.style.transform = 'scale(0.9)';
+      setTimeout(() => {
+        floatingChat.style.transform = 'scale(1)';
+      }, 200);
+    });
+    
+    // 打开聊天按钮交互
+    document.getElementById('open-chat').addEventListener('click', () => {
+      chatContainer.scrollIntoView({ behavior: 'smooth' });
+    });
+    
+    // 聊天输入框交互
+    const chatInput = document.querySelector('.chat-input input');
+    const chatButton = document.querySelector('.chat-input button');
+    const chatMessages = document.getElementById('chat-messages');
+    
+    function sendMessage() {
+      const message = chatInput.value.trim();
+      if (message) {
+        // 添加用户消息
+        const userMessage = document.createElement('div');
+        userMessage.className = 'message message-user';
+        userMessage.innerHTML = `
+          <div class="message-avatar"></div>
+          <div class="message-content">
+            <p>${message}</p>
+          </div>
+        `;
+        chatMessages.appendChild(userMessage);
+        
+        // 清空输入框
+        chatInput.value = '';
+        
+        // 模拟AI回复
+        setTimeout(() => {
+          const aiMessage = document.createElement('div');
+          aiMessage.className = 'message message-bot';
+          aiMessage.innerHTML = `
+            <div class="message-avatar"></div>
+            <div class="message-content">
+              <p>感谢您的提问，我们正在处理中，请稍候...</p>
+            </div>
+          `;
+          chatMessages.appendChild(aiMessage); //将aiMessage元素追加到 chatMessages 容器的末尾
+          
+          // 滚动到底部
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 1000);
+        
+        // 滚动到底部
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    }
+    
+    chatButton.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+    
+    // 页面滚动动画
+    function checkVisibility() {
+      const sections = document.querySelectorAll('section');
+      
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight * 0.8;
+    
+        if (isVisible && !section.classList.contains('visible')) {
+        section.classList.add('visible');
+        
+        if (section.classList.contains('contact-cards')) {
+            const cards = section.querySelectorAll('.contact-card');
+            cards.forEach((card, index) => {
+            setTimeout(() => {
+                card.style.opacity = 1;
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+            });
+        }
+        }
+    });
+    }
+
+    
+    // 初始检查
+    checkVisibility();
+    
+    // 滚动时检查
+    window.addEventListener('scroll', checkVisibility);
+  </script>
+</body>
+</html>

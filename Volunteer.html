@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>豫韵传承 · 河大非遗志愿者计划</title>
+  <!-- 引入外部资源 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#A52A2A', // 红棕色主色调
+            secondary: '#D2B48C', // 暖棕辅助色
+            tertiary: '#2D2E2E', // 深灰色
+            gold: '#D4AF37', // 金色点缀
+            light: '#F5F0EB' // 浅色背景
+          },
+          fontFamily: {
+            'serif': ['Noto Serif SC', 'serif'],
+            'wei': ['ZCOOL XiaoWei', 'serif']
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .text-shadow-lg {
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .mask-gradient {
+        mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-light text-tertiary font-wei overflow-x-hidden">
+  <!-- 导航栏 - 增加首页链接 -->
+  <header id="navbar" class="fixed w-full z-50 transition-all duration-500">
+    <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center space-x-2">
+        <span class="text-primary text-3xl"><i class="fa fa-music"></i></span>
+        <span class="text-2xl font-serif font-bold text-white text-shadow">豫韵传承 · 河大计划</span>
+      </a>
+      
+      <!-- 桌面导航 - 增加首页链接 -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="text-white hover:text-gold transition-colors duration-300">首页</a>
+        <a href="#about" class="text-white hover:text-gold transition-colors duration-300">豫剧简介</a>
+        <a href="#history" class="text-white hover:text-gold transition-colors duration-300">历史渊源</a>
+        <a href="#volunteer" class="text-white hover:text-gold transition-colors duration-300">河大志愿者</a>
+        <a href="#travel" class="text-white hover:text-gold transition-colors duration-300">非遗微旅行</a>
+        <a href="#international" class="text-white hover:text-gold transition-colors duration-300">国际版</a>
+        <button class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-full transition-all duration-300 transform hover:scale-105">
+          加入志愿
+        </button>
+      </div>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="menuBtn" class="md:hidden text-white text-2xl">
+        <i class="fa fa-bars"></i>
+      </button>
+    </nav>
+    
+    <!-- 移动端导航菜单 - 增加首页链接 -->
+    <div id="mobileMenu" class="md:hidden bg-tertiary/95 absolute w-full left-0 top-full transform -translate-y-full opacity-0 transition-all duration-300 invisible">
+      <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+        <a href="index.html" class="text-white hover:text-gold py-2 transition-colors duration-300">首页</a>
+        <a href="#about" class="text-white hover:text-gold py-2 transition-colors duration-300">豫剧简介</a>
+        <a href="#history" class="text-white hover:text-gold py-2 transition-colors duration-300">历史渊源</a>
+        <a href="#volunteer" class="text-white hover:text-gold py-2 transition-colors duration-300">河大志愿者</a>
+        <a href="#travel" class="text-white hover:text-gold py-2 transition-colors duration-300">非遗微旅行</a>
+        <a href="#international" class="text-white hover:text-gold py-2 transition-colors duration-300">国际版</a>
+        <button class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-full transition-all duration-300">
+          加入志愿
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区域 -->
+  <section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0 bg-gradient-to-r from-primary/90 to-primary/70">
+      <div class="absolute inset-0 bg-[url('相关图片素材/豫韵学子.jpg')] opacity-30 bg-cover bg-center"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="max-w-4xl text-center">
+          <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-serif font-bold text-white text-shadow-lg mb-6">
+            AI赋能非遗 <br> 河大志愿传承
+          </h1>
+          <p class="text-[clamp(1rem,3vw,1.5rem)] text-white text-shadow max-w-3xl mx-auto mb-10">
+            河南大学学子联动都市圈非遗工坊，用技术打破文化传承边界，打造非遗实践新生态
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="#volunteer" class="bg-white text-primary hover:bg-white/90 px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105">
+              成为志愿者
+            </a>
+            <a href="#travel" class="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-3 rounded-full transition-all duration-300">
+              探索微旅行
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 豫剧简介 -->
+  <section id="about" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-serif font-bold mb-4 text-primary">豫剧简介</h2>
+        <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          豫剧，发源于中原（河南），是中国五大戏曲剧种之一，也是中国第一大地方剧种，被列入第一批国家级非物质文化遗产名录。
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h3 class="text-2xl font-serif font-bold mb-4 text-tertiary">艺术特色</h3>
+          <p class="mb-4 text-gray-700 leading-relaxed">
+            豫剧以唱腔铿锵大气、抑扬有度、行腔酣畅、吐字清晰、韵味醇美、生动活泼、有血有肉、善于表达人物内心情感著称，凭借其高度的艺术性而广受各界人士欢迎。
+          </p>
+          <p class="mb-6 text-gray-700 leading-relaxed">
+            因其音乐伴奏用枣木梆子打拍，故早期得名"河南梆子"。豫剧是在河南梆子的基础上不断继承、改革和创新发展起来的。
+          </p>
+          
+          <div class="grid grid-cols-2 gap-6">
+            <div class="bg-light p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div class="text-primary text-3xl mb-3"><i class="fa fa-volume-up"></i></div>
+              <h4 class="font-serif font-bold text-lg mb-2">唱腔特点</h4>
+              <p class="text-gray-600">高亢激昂，节奏鲜明，富有感染力</p>
+            </div>
+            <div class="bg-light p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div class="text-primary text-3xl mb-3"><i class="fa fa-mask"></i></div>
+              <h4 class="font-serif font-bold text-lg mb-2">表演特色</h4>
+              <p class="text-gray-600">朴实生动，夸张适度，情感充沛</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="relative">
+          <div class="relative z-10 rounded-lg overflow-hidden shadow-xl transform hover:scale-[1.02] transition-transform duration-500">
+            <img src="./相关图片素材/豫剧简介.jpg" alt="豫剧表演" class="w-full h-auto">
+          </div>
+          <div class="absolute top-10 -right-10 w-64 h-64 bg-primary/10 rounded-full -z-10"></div>
+          <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-secondary/20 rounded-full -z-10"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 历史渊源 -->
+  <section id="history" class="py-20 bg-tertiary text-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-serif font-bold mb-4 text-white">历史渊源</h2>
+        <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+        <p class="text-lg text-gray-300 max-w-3xl mx-auto">
+          豫剧的发展历程跨越了一个半世纪，见证了中国社会的变迁，也形成了独特的艺术风格。
+        </p>
+      </div>
+      
+      <!-- 时间线 -->
+      <div class="relative">
+        <!-- 中轴线 -->
+        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/50"></div>
+        
+        <!-- 时间点1 -->
+        <div class="relative mb-16">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-12 md:text-right mb-8 md:mb-0 md:text-gray-300">
+              <h3 class="text-2xl font-serif font-bold mb-2 text-white">起源与形成 (19世纪中期)</h3>
+              <p>豫剧起源于明朝中后期，是在河南盛行的时尚小令（民歌、小调）的基础上，吸收北曲弦索、秦腔、蒲州梆子等演唱艺术后发展而成的。</p>
+            </div>
+            <div class="absolute left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full bg-primary border-4 border-tertiary z-10"></div>
+            <div class="md:w-1/2 md:pl-12 md:text-left hidden md:block">
+              <img src="./相关图片素材/起源与形成.jpg" alt="早期豫剧表演" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+            </div>
+          </div>
+        </div>
+        
+        <!-- 时间点2 -->
+        <div class="relative mb-16">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-12 md:text-right hidden md:block">
+              <img src="./相关图片素材/发展期.jpg" alt="豫剧发展期" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="absolute left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full bg-primary border-4 border-tertiary z-10"></div>
+            <div class="md:w-1/2 md:pl-12 md:text-left mb-8 md:mb-0 md:text-gray-300">
+              <h3 class="text-2xl font-serif font-bold mb-2 text-white">发展与成熟 (20世纪初-中期)</h3>
+              <p>20世纪30年代，豫剧进入了一个快速发展期，形成了祥符调、豫东调、豫西调、沙河调等不同流派，出现了一批著名演员和经典剧目。</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 时间点3 -->
+        <div class="relative">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-12 md:text-right mb-8 md:mb-0 md:text-gray-300">
+              <h3 class="text-2xl font-serif font-bold mb-2 text-white">创新与传承 (20世纪后期至今)</h3>
+              <p>改革开放后，豫剧在保留传统特色的基础上不断创新，融入现代元素，多次获得国家级奖项，成为中国最有影响力的地方戏曲之一。</p>
+            </div>
+            <div class="absolute left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full bg-primary border-4 border-tertiary z-10"></div>
+            <div class="md:w-1/2 md:pl-12 md:text-left hidden md:block">
+              <img src="./相关图片素材/现代豫剧.jpg" alt="现代豫剧" class="rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 河大非遗志愿者模块 -->
+  <section id="volunteer" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-serif font-bold mb-4 text-primary">河大非遗志愿者计划</h2>
+        <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          河南大学学子联动都市圈非遗工坊，通过数字技术完成非遗建档，获取实践学分，打造非遗传承新链路
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- 模块1：工坊需求发布 -->
+        <div class="bg-light p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-primary">
+          <div class="text-primary text-4xl mb-6"><i class="fa fa-briefcase"></i></div>
+          <h3 class="text-xl font-serif font-bold mb-4">非遗工坊需求</h3>
+          <p class="text-gray-700 mb-4">
+            洛阳唐三彩、朱仙镇木版年画等都市圈非遗工坊，可发布“数字建档需求”，如3D扫描制作流程、高清影像记录等。
+          </p>
+          <a href="#" class="inline-flex items-center text-primary font-bold hover:underline">
+            查看需求列表 <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+        
+        <!-- 模块2：学生志愿接单 -->
+        <div class="bg-light p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-primary">
+          <div class="text-primary text-4xl mb-6"><i class="fa fa-graduation-cap"></i></div>
+          <h3 class="text-xl font-serif font-bold mb-4">学生线上接单</h3>
+          <p class="text-gray-700 mb-4">
+            河大学生可在线认领需求，使用手机3D扫描、高清拍摄等工具完成非遗数字化任务，积累实践经验。
+          </p>
+          <a href="#" class="inline-flex items-center text-primary font-bold hover:underline">
+            我要接单 <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+        
+        <!-- 模块3：学分认证体系 -->
+        <div class="bg-light p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-primary">
+          <div class="text-primary text-4xl mb-6"><i class="fa fa-certificate"></i></div>
+          <h3 class="text-xl font-serif font-bold mb-4">非遗实践学分</h3>
+          <p class="text-gray-700 mb-4">
+            完成任务后可获得“非遗实践学分”，直接对接河南大学创新创业学分体系，助力学业发展。
+          </p>
+          <a href="#" class="inline-flex items-center text-primary font-bold hover:underline">
+            查看学分细则 <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- 数据统计 -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20">
+        <div class="text-center p-6">
+          <div class="text-4xl md:text-5xl font-serif font-bold text-primary mb-2 counter" data-target="28">0</div>
+          <p class="text-gray-600">合作工坊</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="text-4xl md:text-5xl font-serif font-bold text-primary mb-2 counter" data-target="156">0</div>
+          <p class="text-gray-600">发布需求</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="text-4xl md:text-5xl font-serif font-bold text-primary mb-2 counter" data-target="320">0</div>
+          <p class="text-gray-600">参与学生</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="text-4xl md:text-5xl font-serif font-bold text-primary mb-2 counter" data-target="89">0</div>
+          <p class="text-gray-600">完成项目</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 非遗微旅行路线 -->
+  <section id="travel" class="py-20 bg-tertiary text-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-serif font-bold mb-4 text-white">非遗微旅行路线</h2>
+        <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+        <p class="text-lg text-gray-300 max-w-3xl mx-auto">
+          LBS位置服务生成动态轨迹文化基因链，以河大学生为纽带，破解都市圈非遗“跨城服务碎片化”问题
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <div>
+          <h3 class="text-2xl font-serif font-bold mb-6 text-white">动态轨迹文化基因链</h3>
+          <p class="mb-4 text-gray-300 leading-relaxed">
+            基于LBS技术，为用户生成个性化非遗微旅行路线，串联郑州、洛阳、开封等都市圈非遗点位，形成“文化基因链”，直观呈现非遗的地域关联与传承脉络。
+          </p>
+          <p class="mb-6 text-gray-300 leading-relaxed">
+            河大学生作为“文化向导”，可在线讲解路线中的非遗故事，提升游客的文化体验深度。
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <span class="bg-primary/20 text-white px-4 py-2 rounded-full text-sm">郑州豫剧体验</span>
+            <span class="bg-primary/20 text-white px-4 py-2 rounded-full text-sm">洛阳唐三彩工坊</span>
+            <span class="bg-primary/20 text-white px-4 py-2 rounded-full text-sm">开封汴绣传承</span>
+            <span class="bg-primary/20 text-white px-4 py-2 rounded-full text-sm">朱仙镇木版年画</span>
+          </div>
+        </div>
+        <div class="relative">
+          <img src="./相关图片素材/微旅行.jpg" alt="非遗微旅行" class="w-full h-auto rounded-lg shadow-xl">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <button class="bg-primary/80 hover:bg-primary text-white w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300">
+              <i class="fa fa-play text-2xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 路线优势 -->
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white/5 backdrop-blur-sm p-6 rounded-lg hover:bg-white/10 transition-colors duration-300">
+          <div class="text-primary text-3xl mb-4"><i class="fa fa-map-marker"></i></div>
+          <h3 class="text-xl font-serif font-bold mb-3 text-white">跨城服务整合</h3>
+          <p class="text-gray-300">
+            打破都市圈非遗服务碎片化现状，实现“一站式”非遗体验，提升文化消费便捷性。
+          </p>
+        </div>
+        <div class="bg-white/5 backdrop-blur-sm p-6 rounded-lg hover:bg-white/10 transition-colors duration-300">
+          <div class="text-primary text-3xl mb-4"><i class="fa fa-users"></i></div>
+          <h3 class="text-xl font-serif font-bold mb-3 text-white">学生纽带作用</h3>
+          <p class="text-gray-300">
+            河大学生作为文化桥梁，既传承非遗知识，又为游客提供年轻化、个性化的讲解服务。
+          </p>
+        </div>
+        <div class="bg-white/5 backdrop-blur-sm p-6 rounded-lg hover:bg-white/10 transition-colors duration-300">
+          <div class="text-primary text-3xl mb-4"><i class="fa fa-mobile"></i></div>
+          <h3 class="text-xl font-serif font-bold mb-3 text-white">LBS智能导航</h3>
+          <p class="text-gray-300">
+            基于位置的动态路线规划，实时更新非遗点位信息，为游客提供精准、高效的文化探索体验。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 国际版与联合课程 -->
+  <section id="international" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-serif font-bold mb-4 text-primary">国际版与联合课程</h2>
+        <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          为“一带一路”游客提供双语音导航，联合沿线高校开展非遗数字合创课程，打造国际文化交流新平台
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-12 mb-16">
+        <!-- 国际版模块 -->
+        <div>
+          <h3 class="text-2xl font-serif font-bold mb-6 text-tertiary">非遗路线国际版</h3>
+          <p class="mb-4 text-gray-700 leading-relaxed">
+            为“一带一路”国际游客提供“中文+外语”（英语、俄语、阿拉伯语等）双语音导航，支持多语言切换，让外国游客轻松探索河南都市圈非遗魅力。
+          </p>
+          <div class="flex flex-wrap gap-4 mb-6">
+            <span class="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm">多语言切换</span>
+            <span class="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm">文化点双语讲解</span>
+            <span class="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm">国际游客专属路线</span>
+          </div>
+          <a href="#" class="inline-block bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full transition-all duration-300">
+            体验国际版导航
+          </a>
+        </div>
+        <div class="relative">
+          <img src="./相关图片素材/国际化.jpg" alt="国际版导航" class="w-full h-auto rounded-lg shadow-xl">
+        </div>
+      </div>
+      
+      <!-- 联合课程模块 -->
+      <div class="bg-tertiary/5 p-8 rounded-lg mb-16">
+        <h3 class="text-2xl font-serif font-bold mb-6 text-center text-primary">“黄河非遗 × 本土文化” 线上联合课程</h3>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="text-primary text-3xl mb-4 text-center"><i class="fa fa-graduation-cap"></i></div>
+            <h4 class="text-xl font-serif font-bold mb-3 text-center">国际合创</h4>
+            <p class="text-gray-600 text-center">
+              与泰国清迈大学、哈萨克斯坦国立大学等沿线高校合作，河大学生与外国学生组队，用AI工具完成“豫剧+外国本土艺术”的数字合创。
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="text-primary text-3xl mb-4 text-center"><i class="fa fa-university"></i></div>
+            <h4 class="text-xl font-serif font-bold mb-3 text-center">元宇宙展厅</h4>
+            <p class="text-gray-600 text-center">
+              合创作品上传至元宇宙展厅联合展出，打破地域限制，让全球用户在线欣赏非遗与国际文化的融合成果。
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="text-primary text-3xl mb-4 text-center"><i class="fa fa-certificate"></i></div>
+            <h4 class="text-xl font-serif font-bold mb-3 text-center">区块链认证</h4>
+            <p class="text-gray-600 text-center">
+              外国学生完成课程后，可获得河南大学与沿线高校联合盖章的“非遗数字认证证书”，证书信息通过区块链存证，确保权威可追溯。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-tertiary border-t border-white/10 py-12 text-white/80">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <span class="text-primary text-3xl"><i class="fa fa-music"></i></span>
+            <span class="text-2xl font-serif font-bold text-white">豫韵传承 · 河大计划</span>
+          </div>
+          <p class="mb-4">
+            河南大学非遗志愿者计划官方平台，联动都市圈非遗工坊与国际资源，打造非遗传承新生态。
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-white/70 hover:text-primary transition-colors"><i class="fa fa-weibo"></i></a>
+            <a href="#" class="text-white/70 hover:text-primary transition-colors"><i class="fa fa-wechat"></i></a>
+            <a href="#" class="text-white/70 hover:text-primary transition-colors"><i class="fa fa-youtube-play"></i></a>
+            <a href="#" class="text-white/70 hover:text-primary transition-colors"><i class="fa fa-instagram"></i></a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-white text-lg font-bold mb-4">快速链接</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="hover:text-primary transition-colors">首页</a></li>
+            <li><a href="#about" class="hover:text-primary transition-colors">豫剧简介</a></li>
+            <li><a href="#history" class="hover:text-primary transition-colors">历史渊源</a></li>
+            <li><a href="#volunteer" class="hover:text-primary transition-colors">河大志愿者</a></li>
+            <li><a href="#travel" class="hover:text-primary transition-colors">非遗微旅行</a></li>
+            <li><a href="#international" class="hover:text-primary transition-colors">国际版</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-white text-lg font-bold mb-4">联系我们</h4>
+          <ul class="space-y-2">
+            <li class="flex items-start">
+              <i class="fa fa-map-marker mt-1 mr-3 text-primary"></i>
+              <span>河南省开封市河南大学金明校区</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-phone mr-3 text-primary"></i>
+              <span>010-12345678</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-envelope mr-3 text-primary"></i>
+              <span>henu@hetuyuancreative.com</span>
+            </li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-white text-lg font-bold mb-4">订阅资讯</h4>
+          <p class="mb-4">关注公众号夏天的豫剧频道，获取非遗活动、课程、志愿机会的最新信息。</p>
+          <form class="flex">
+            <input type="email" placeholder="您的邮箱地址" class="px-4 py-2 rounded-l-full w-full focus:outline-none text-tertiary">
+            <button type="submit" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-r-full transition-colors">
+              <i class="fa fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="border-t border-white/10 pt-8 text-center">
+        <p>&copy; 2025 河图元创-豫韵传承 · 河南大学非遗志愿者计划. 保留所有权利.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 回到顶部按钮 -->
+  <button id="backToTop" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 z-50">
+    <i class="fa fa-chevron-up"></i>
+  </button>
+
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    const backToTop = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 100) {
+        navbar.classList.add('bg-tertiary/95', 'backdrop-blur-md', 'shadow-lg');
+        navbar.classList.remove('py-4');
+        navbar.classList.add('py-2');
+        
+        backToTop.classList.remove('opacity-0', 'invisible');
+        backToTop.classList.add('opacity-100', 'visible');
+      } else {
+        navbar.classList.remove('bg-tertiary/95', 'backdrop-blur-md', 'shadow-lg');
+        navbar.classList.remove('py-2');
+        navbar.classList.add('py-4');
+        
+        backToTop.classList.add('opacity-0', 'invisible');
+        backToTop.classList.remove('opacity-100', 'visible');
+      }
+    });
+    
+    // 移动端菜单
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+    
+    menuBtn.addEventListener('click', function() {
+      if (!menuOpen) {
+        mobileMenu.classList.remove('-translate-y-full', 'opacity-0', 'invisible');
+        mobileMenu.classList.add('translate-y-0', 'opacity-100', 'visible');
+        menuBtn.innerHTML = '<i class="fa fa-times"></i>';
+      } else {
+        mobileMenu.classList.add('-translate-y-full', 'opacity-0', 'invisible');
+        mobileMenu.classList.remove('translate-y-0', 'opacity-100', 'visible');
+        menuBtn.innerHTML = '<i class="fa fa-bars"></i>';
+      }
+      menuOpen = !menuOpen;
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // 关闭移动菜单
+        if (menuOpen) {
+          mobileMenu.classList.add('-translate-y-full', 'opacity-0', 'invisible');
+          mobileMenu.classList.remove('translate-y-0', 'opacity-100', 'visible');
+          menuBtn.innerHTML = '<i class="fa fa-bars"></i>';
+          menuOpen = false;
+        }
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // 回到顶部
+    backToTop.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // 数字计数动画
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200;
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const counter = entry.target;
+          const target = +counter.getAttribute('data-target');
+          const count = +counter.innerText;
+          const increment = target / speed;
+          
+          if (count < target) {
+            counter.innerText = Math.ceil(count + increment);
+            setTimeout(() => {
+              counter.innerText = Math.ceil(count + increment);
+            }, 1);
+          } else {
+            counter.innerText = target;
+            observer.unobserve(counter);
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(counter => {
+      observer.observe(counter);
+    });
+  </script>
+</body>
+</html>
