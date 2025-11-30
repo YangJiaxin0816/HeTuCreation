@@ -37,11 +37,19 @@
             height: 80px;
         }
         
+        /* 核心修改1：全局图片基础适配 - 优先响应式缩放 */
         img {
-            height: 80px;
-            width: 250px;
-            object-fit: contain;
+            max-width: 100%; /* 关键：图片宽度不超过父容器 */
+            height: auto;    /* 关键：高度自动适配，保持比例 */
+            object-fit: contain; /* 保持图片完整显示，不裁剪 */
         }
+        
+        /* 头部Logo特殊适配（保持原有尺寸比例，避免过小） */
+        .head img {
+            max-width: 250px; /* 限制最大宽度 */
+            height: 80px;     /* 保持头部Logo高度不变 */
+        }
+        
         /* 通告栏 */
         .announcement-bar {
             background-color: #8B0000;
@@ -211,10 +219,11 @@
             position: relative;
         }
         
+        /* Banner图片特殊适配 - 保持覆盖且不拉伸 */
         .banner-slide img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* 保持覆盖容器，裁剪多余部分（保证Banner完整性） */
         }
         
         .banner-content {
@@ -387,10 +396,11 @@
             border: rgb(222, 205, 177) 5px solid;
         }
         
+        /* 轮播名片图片适配 - 保持容器内完整显示 */
         .shell .box .images img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* 覆盖名片容器，保证图片填充效果 */
         }
         
         .shell:hover .box {
@@ -472,12 +482,13 @@
             cursor: pointer;
         }
         
+        /* 卡片标题图片适配 - 保持圆形比例 */
         .cardbox>.cardtitle>.item>img {
             width: 70px;
             height: 70px;
             border-radius: 100%;
             transition: .5s;
-            object-fit: cover;
+            object-fit: cover; /* 保持图片填充圆形，不拉伸 */
         }
         
         .cardbox>.cardtitle>.item>span {
@@ -546,10 +557,10 @@
             gap: 30px;
         }
         
+        /* 卡片内容图片列表适配 - 保持响应式且不拉伸 */
         .imgList>img {
-            height: auto;
-            max-height: 300px;
-            max-height: 400px;
+            max-width: 100%; /* 关键：适应父容器宽度 */
+            height: auto;    /* 高度自动适配 */
             object-fit: contain;
             border-radius: 50px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -672,31 +683,6 @@
             display: table;
         }
         
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .shell {
-                min-width: auto;
-            }
-            
-            .OperaVideo {
-                float: none;
-                width: 100%;
-                margin: 0 0 20px 0;
-            }
-            
-            .Opera h2 {
-                font-size: 1.5rem;
-            }
-            
-            .cardbox>.cardtitle>.item {
-                min-width: 120px;
-            }
-            
-            .cardcontent>h1 {
-                font-size: 36px;
-            }
-        }
-        
         /* 版权栏 */
         .copyright {
             margin-top: 80px;
@@ -708,6 +694,228 @@
             font-size: 14px;
         }
 
+        /* 响应式设计（重点修改：完善手机适配） */
+        @media (max-width: 768px) {
+            /* 核心修改2：手机端图片强化适配 */
+            img {
+                max-width: 100%; /* 完全适配手机宽度 */
+                height: auto;
+            }
+            
+            /* 头部Logo手机端适配 - 缩小高度，保持比例 */
+            .head img {
+                height: 60px;
+                max-width: 200px;
+            }
+            
+            /* 头部布局：垂直排列 */
+            .head {
+                flex-direction: column;
+                height: auto;
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            /* 导航栏：横向滚动（避免换行挤压） */
+            header ul {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding: 10px 0;
+                gap: 10px;
+            }
+            
+            header ul li a {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+            
+            /* 搜索栏：宽度铺满 */
+            .search-bar {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .search-bar input[type="text"] {
+                width: 70%;
+                max-width: 200px;
+            }
+            
+            /* 通告栏：简化样式 */
+            .announcement-bar {
+                height: auto;
+                padding: 8px 15px;
+            }
+            
+            .announcement-text {
+                font-size: 14px;
+            }
+            
+            /* Banner区域：降低高度，适配手机屏幕 */
+            .banner-container {
+                height: 220px;
+                margin-bottom: 20px;
+            }
+            
+            .banner-content h2 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .banner-content p {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+            }
+            
+            .banner-button {
+                padding: 8px 20px;
+                font-size: 14px;
+            }
+            
+            .banner-arrow {
+                width: 30px;
+                height: 30px;
+            }
+            
+            /* 方向感应名片：单列显示，取消3D效果（手机性能优化） */
+            .shell {
+                min-width: auto;
+                perspective: none;
+            }
+            
+            .shell:hover .box,
+            .shell .box:hover~.box {
+                transform: rotateY(0);
+            }
+            
+            .shell .box {
+                width: 100%;
+                max-width: 300px;
+                margin: 15px auto;
+                transform: rotateY(0);
+            }
+            
+            /* 卡片标题：单列显示 */
+            .cardbox>.cardtitle {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .cardbox>.cardtitle>.item {
+                min-width: auto;
+                width: 100%;
+                font-size: 16px;
+            }
+            
+            .cardbox>.cardtitle>.item>span {
+                letter-spacing: 2px;
+                margin-right: 5px;
+            }
+            
+            .cardbox>.cardtitle>.checked>span {
+                margin-right: 15px;
+            }
+            
+            /* 卡片内容：简化样式 */
+            .cardcontent {
+                padding: 20px 15px;
+            }
+            
+            .cardcontent>h1 {
+                font-size: 24px;
+                margin: 15px 0;
+            }
+            
+            .cardcontent>.body {
+                font-size: 16px;
+                line-height: 1.8;
+            }
+            
+            /* 图片列表：单列显示（核心手机适配） */
+            .imgList {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            /* 手机端图片列表取消固定宽度，完全适配 */
+            .cardcontent:nth-child(2) .imgList img,
+            .cardcontent:nth-child(3) .imgList img,
+            .cardcontent:nth-child(4) .imgList img,
+            .cardcontent:nth-child(5) .imgList img {
+                width: 100% !important;
+                max-height: none;
+                border-radius: 20px;
+            }
+            
+            /* 戏剧介绍：视频取消浮动，单列显示 */
+            .OperaVideo {
+                float: none;
+                width: 100%;
+                min-width: auto;
+                margin: 0 0 15px 0;
+            }
+            
+            .Opera h2 {
+                font-size: 1.5rem;
+            }
+            
+            .Opera p {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+            
+            /* 弹幕：缩小字体和间距 */
+            .floatWard div span {
+                font-size: 14px;
+                margin: 15px 10px;
+                padding: 3px 8px;
+            }
+            
+            /* 版权栏：换行显示 */
+            .copyright p {
+                margin: 5px 0;
+                font-size: 12px;
+                padding: 0 10px;
+            }
+            
+            /* 通告卡片：单列显示 */
+            .announcement-cards {
+                gap: 15px;
+                padding: 0 15px;
+            }
+            
+            .announcement-card {
+                padding: 15px;
+            }
+            
+            .announcement-card-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* 小屏手机适配（375px以下） */
+        @media (max-width: 375px) {
+            .banner-container {
+                height: 180px;
+            }
+            
+            .banner-content h2 {
+                font-size: 1.2rem;
+            }
+            
+            .cardcontent>h1 {
+                font-size: 20px;
+            }
+            
+            .floatWard div span {
+                font-size: 12px;
+                margin: 10px 8px;
+            }
+            
+            /* 小屏手机图片列表进一步优化 */
+            .imgList>img {
+                border-radius: 15px; /* 减小圆角，适配小屏幕 */
+            }
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
